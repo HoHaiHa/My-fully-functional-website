@@ -32,8 +32,8 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<CategoryResponse> getAll() {
-		var categorys= categoryRepository.findAll();
-		return categorys.stream().map(category -> categoryMapper.toCategoryResponse(category)).toList();
+		var categories= categoryRepository.findAll();
+		return categories.stream().map(category -> categoryMapper.toCategoryResponse(category)).toList();
 	}
 
 	@Override

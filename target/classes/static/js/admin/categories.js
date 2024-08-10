@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		throw new Error('login error');
 	}
 
-	const getApi = `${baseUrl}/roles`
+	const getApi = `${baseUrl}/categories`
 
 	const getOptions = {
 		method: 'GET',
@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	function start() {
-		getRoles(renderRoles)
+		getCategories(renderCategories)
 	}
 
 	start()
 
-	function getRoles(callback) {
+	function getCategories(callback) {
 		fetch(getApi, getOptions)
 			.then(response => {
 				if (!response.ok) throw new Error("error fetch response not ok")
@@ -37,31 +37,31 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 	}
 
-	function renderRoles(roles) {
-		const listRolesResult = roles.result;
+	function renderCategories(categories) {
+		const listCategoriesResult = categories.result;
 
-		$('#list-roles').html(`		
+		$('#list-categories').html(`		
     <tr>
-        <th scope="col">Tên vai trò</th>
+        <th scope="col">Tên danh mục</th>
         <th scope="col">Mô tả</th>
     </tr>`);
 
-		listRolesResult.forEach((role) => {
+		listCategoriesResult.forEach((category) => {
 			const row = document.createElement('tr');
 			row.setAttribute('style', "cursor:pointer");
 			row.innerHTML = `
-            <td >${role.name}</td>
-            <td >${role.description}</td>
-            <td ><button type="button" class="btn btn-outline-danger btn-delete"  data-role="${role.name}">Xoá role</button></td>
+            <td >${category.name}</td>
+            <td >${category.descriptions}</td>
+            <td ><button type="button" class="btn btn-outline-danger btn-delete"  data-categories="${category.name}">Xoá danh mục</button></td>
             <td> &emsp;</td>
         `;
-			document.getElementById('list-roles').appendChild(row);
+			document.getElementById('list-categories').appendChild(row);
 		});
 	}
 
 	//xử lý thêm 
 	function addRole(data) {
-		const addApi = `${baseUrl}/roles`
+		const addApi = `${baseUrl}/categories`
 
 		const addOptions = {
 			method: "POST",
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	$('#btn-save').click(() => {
 		var data = {
 			"name": $('#input-name').val().trim(),
-			"description": $('#input-desctiption').val(),
+			"descriptions": $('#input-desctiption').val(),
 			"permissions": []
 		};
 		addRole(data)
@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		location.reload();
 	})
 	//xử lý xoá
-	function deleteRole(roleName) {
-		const deleteApi = `${baseUrl}/roles/${roleName}`
+	function deleteCategoy(categoryName) {
+		const deleteApi = `${baseUrl}/roles/${categoryName}`
 
 		const deleteOptions = {
 			method: "DELETE",
@@ -116,10 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Sử dụng sự kiện ủy quyền nút xoá
 	document.addEventListener('click', function(event) {
 		if (event.target.classList.contains('btn-delete')) {
-			var userConfirm = confirm('Xoá role này?');
+			var userConfirm = confirm('Xoá danh mục này?');
 			if (userConfirm) {
-				var roleName = event.target.getAttribute('data-role');
-				deleteRole(roleName);
+				var categoryName = event.target.getAttribute('data-categories');
+				deleteCategoy(categoryName);
 				location.reload()
 			}
 		}
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 	//ẩn hiện form add role
-	$('#btn-addRole').click(() => {
+	$('#btn-add').click(() => {
 		$('#layer-add').fadeIn(100);
 		$('#input-name').val('')
 		$('#input-desctiption').val('')

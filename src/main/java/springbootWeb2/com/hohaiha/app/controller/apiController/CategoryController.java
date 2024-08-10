@@ -18,7 +18,7 @@ import springbootWeb2.com.hohaiha.app.dto.response.CategoryResponse;
 import springbootWeb2.com.hohaiha.app.service.CategoryService;
 
 @RestController
-@RequestMapping("/categorys")
+@RequestMapping("/categories")
 @RequiredArgsConstructor
 public class CategoryController {
 

@@ -33,7 +33,7 @@ public class SecurityConfig {
 			"/auth/refresh" };
 
 	private final String[] PUBLIC_GET_ENDPOINTS = { "/favicon.ico", "/login", "/admin/getusers", "/admin/adduser",
-			"/admin/detailuser", "/admin/updateuser","/admin/roles" };
+			"/admin/detailuser", "/admin/updateuser","/admin/roles","/admin/categories" };
 
 	@Value("${jwt.signerKey}")
 	private String SIGNER_KEY;

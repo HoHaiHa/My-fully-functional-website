@@ -6,7 +6,7 @@
 <title>ADMIN LALASHOP manager</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" />
-<script type="module" th:src="@{/js/admin/roles.js}"></script>
+<script type="module" th:src="@{/js/admin/categories.js}"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
@@ -22,16 +22,16 @@
 
 			<div class="col-10 text-white content container">
 				<div class="row">
-					<H2 class="col-7" style="color: black">Vai trò và quyền</H2>
+					<H2 class="col-7" style="color: black">Danh mục sản phẩm</H2>
 				</div>
-				<table class="table " id="list-roles"
+				<table class="table " id="list-categories"
 					style="border: none; background-color: white">
 				</table>
 				<div class="container">
 
 
 					<a type="button" class="btn btn-primary btn-sm col-2 mb-3"
-						id="btn-addRole">Thêm vai trò</a>
+						id="btn-add">Thêm danh mục</a>
 				</div>
 			</div>
 
@@ -44,7 +44,7 @@
 			<h3 class="x">x</h3>
 			<table class="mt-5">
 				<tr >
-					<td>Tên vai trò   &emsp;&emsp;&emsp;&emsp;</td>
+					<td>Tên danh mục   &emsp;&emsp;&emsp;&emsp;</td>
 					<td><input class="col-12" id="input-name"></td>
 				</tr>
 				<tr>

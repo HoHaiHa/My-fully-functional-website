@@ -83,13 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	$('#btn-save').click(() => {
 		var data = {
-			"name": $('#input-name').val(),
+			"name": $('#input-name').val().trim(),
 			"description": $('#input-desctiption').val(),
 			"permissions": []
 		};
 		addRole(data)
 		start()
-		$('#layer-addRole').fadeOut(100);
+		$('#layer-add').fadeOut(100);
 		location.reload();
 	})
 	//xử lý xoá
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 	}
 
-	// Sử dụng sự kiện ủy quyền
+	// Sử dụng sự kiện ủy quyền nút xoá
 	document.addEventListener('click', function(event) {
 		if (event.target.classList.contains('btn-delete')) {
 			var userConfirm = confirm('Xoá role này?');
@@ -128,14 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//ẩn hiện form add role
 	$('#btn-addRole').click(() => {
-		$('#layer-addRole').fadeIn(100);
+		$('#layer-add').fadeIn(100);
 		$('#input-name').val('')
 		$('#input-desctiption').val('')
 	});
 
 	$('.x , .dark-layer-cover').click(() => {
 		var userConfirm = confirm('Xác nhận huỷ?')
-		if (userConfirm) $('#layer-addRole').fadeOut(100); // Ẩn thẻ div khi nhấn vào x
+		if (userConfirm) $('#layer-add').fadeOut(100); // Ẩn thẻ div khi nhấn vào x
 	});
 });
 

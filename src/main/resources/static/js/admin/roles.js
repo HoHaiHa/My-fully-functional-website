@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		fetch(addApi, addOptions)
 			.then(response => {
 				if (!response.ok) throw new Error('error fetch response not OK')
+				return response.json()
 			})
 			.catch(error => {
 				console.log(error)
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		fetch(deleteApi, deleteOptions)
 			.then(response => {
 				if (!response.ok) throw new Error('error fetch response not OK')
+				return response.json()
 			})
 			.catch(error => {
 				console.log(error)

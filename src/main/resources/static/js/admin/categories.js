@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		fetch(addApi, addOptions)
 			.then(response => {
 				if (!response.ok) throw new Error('error fetch response not OK')
+				return response.json()
 			})
 			.catch(error => {
 				console.log(error)
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	})
 	//xử lý xoá
 	function deleteCategoy(categoryName) {
-		const deleteApi = `${baseUrl}/roles/${categoryName}`
+		const deleteApi = `${baseUrl}/categories/${categoryName}`
 
 		const deleteOptions = {
 			method: "DELETE",
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		fetch(deleteApi, deleteOptions)
 			.then(response => {
 				if (!response.ok) throw new Error('error fetch response not OK')
+				return response.json()
 			})
 			.catch(error => {
 				console.log(error)
@@ -118,7 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (event.target.classList.contains('btn-delete')) {
 			var userConfirm = confirm('Xoá danh mục này?');
 			if (userConfirm) {
+				
 				var categoryName = event.target.getAttribute('data-categories');
+				console.log(categoryName)
 				deleteCategoy(categoryName);
 				location.reload()
 			}

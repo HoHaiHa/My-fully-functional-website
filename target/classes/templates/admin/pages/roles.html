@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMIN LALASHOP quản lý người dùng</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" />
+<script type="module" th:src="@{/js/admin/roles.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div th:insert="~{admin/fragments/adminFragments :: header}"></div>
+
+	<div class="container-fluid vh-100">
+		<div class="row h-100">
+			<div class="col-2  bg-secondary text-white "
+				th:insert="~{admin/fragments/adminFragments :: menu}"></div>
+
+
+			<div class="col-10 text-white content container">
+				<div class="row">
+					<H2 class="col-7" style="color: black">Vai trò và quyền</H2>
+				</div>
+				<table class="table " id="list-roles"
+					style="border: none; background-color: white">
+				</table>
+				<div class="container">
+
+
+					<a type="button" class="btn btn-primary btn-sm col-2 mb-3"
+						id="btn-addRole">Thêm vai trò</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="layer-addRole" style="display:none">
+		<div class="bg-dark dark-layer-cover"></div>
+		<div class="col-lg-5 bg-light form-input">
+			<h3 class="x">x</h3>
+			<table class="mt-5">
+				<tr >
+					<td>Tên vai trò   &emsp;&emsp;&emsp;&emsp;</td>
+					<td><input class="col-12" id="input-name"></td>
+				</tr>
+				<tr>
+					<td>Mô tả </td>
+					<td><textarea name="w3review" rows="3
+					" cols="36" style="resize: none;" id="input-desctiption"></textarea></td>
+				</tr>
+				
+				<tr>
+					<td><button type="button" class="btn btn-primary col-10" id="btn-save">Lưu</button></td>
+					
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+<style>
+.dark-layer-cover {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0.4;
+	background-size: cover;
+	overflow-y: hidden;
+}
+
+.form-input {
+	position:absolute;
+	height: 40%;
+	top:26%;
+	left:34%;
+	border-radius: 20px;
+}
+.x{
+	width:30px;
+	height:30px;
+	line-height:20px;
+	position: absolute;
+	right: 0px;
+	top:10px;
+	cursor: pointer;
+}
+table{
+	margin-left: 20px;
+}
+td{
+	padding-bottom: 10px;
+}
+</style>
+</html>

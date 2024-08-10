@@ -8,6 +8,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 <style>
 </style>
@@ -20,17 +21,26 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" id="user-btn">USER</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#"
-						tabindex="-1" aria-disabled="true">Disabled</a></li>
+						aria-current="page" id="user-btn">Người dùng</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" id="role-btn">Vai trò và quyền</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" id=""></a></li>
 				</ul>
 			</div>
 		</div>
+		<script type="module">
+			import baseUrl from "../js/config.js";
+
+			$(document).ready(()=>{
+				$('#user-btn').attr('href',`${baseUrl}/admin/getusers`)
+				$('#role-btn').attr('href',`${baseUrl}/admin/roles`)
+			})
+		</script>
 	</nav>
 
 	<div th:fragment="menu">
+
 		<ul style="list-style: none; padding: 0; margin: none">
 			<li><h5>&emsp;</h5></li>
 			<li><h5>&emsp;</h5></li>
@@ -42,4 +52,7 @@
 		</ul>
 	</div>
 </body>
+
+
+
 </html>

@@ -16,6 +16,9 @@ public enum ErrorCode {
     UNAUTHENTICATED(1006, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
     ERROR_BEFORE_REACHING(1007, "This error occurs before reaching the method", HttpStatus.FORBIDDEN),
+    CATEGORY_NOT_EXISTED(1005, "category not existed", HttpStatus.NOT_FOUND),
+    PRODUCT_EXISTED(1002, "Product existed", HttpStatus.BAD_REQUEST),
+    PRODUCT_NOT_EXISTED(1005, "Product not existed", HttpStatus.BAD_REQUEST)
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

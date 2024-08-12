@@ -17,7 +17,6 @@ public class ProductRequest {
 	private String img;
 	private long price;
 	private String descriptions;
-	private String color;
 	private String material;
 	private int quantity;
 	private int discount;
@@ -25,7 +24,8 @@ public class ProductRequest {
 	private String size;
 	private String brand;
 	
-	private Category category;
+	private String category;
+	private String Color;
 	
 	private boolean hot;
 }

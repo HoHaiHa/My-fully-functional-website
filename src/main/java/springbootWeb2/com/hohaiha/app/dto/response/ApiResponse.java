@@ -1,6 +1,5 @@
 package springbootWeb2.com.hohaiha.app.dto.response;
 
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

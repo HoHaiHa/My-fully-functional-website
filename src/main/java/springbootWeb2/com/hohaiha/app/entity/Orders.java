@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,8 +28,6 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 	private String userId;
-	@ManyToMany
-	private List<Item> item;
 	private int totalQuantity;
 	private int discont;
 	private Date creationDate;
@@ -40,5 +39,7 @@ public class Orders {
 	private String notes;
 	private String paymentMethod;
 	private String status;
+	@ManyToOne
+	private List<Item> item;
 	
 }

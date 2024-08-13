@@ -1,4 +1,4 @@
-package springbootWeb2.com.hohaiha.app.controller.apiController;
+ package springbootWeb2.com.hohaiha.app.controller.apiController;
 
 import java.util.List;
 

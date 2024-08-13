@@ -53,6 +53,7 @@ public class UserMapperImpl implements UserMapper {
 				.phone(user.getPhone())
 				.roles(new HashSet<>(user.getRoles().stream()
 						.map(role -> roleMapper.toRoleResponse(role)).collect(Collectors.toSet())))
+				.cartId(user.getCart().getId())
 				.build();
 	}
 

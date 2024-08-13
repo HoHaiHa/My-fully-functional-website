@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
 		user.setRoles(new HashSet<>(Arrays.asList(role)));
 		
 		Cart cart = new Cart();
+		
 		user.setCart(cart);
 		
 		try {

@@ -26,21 +26,27 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableMethodSecurity
 public class SecurityConfig {
 	private final String[] PUBLIC_POST_ENDPOINTS = { "/users", "/auth/token", "/auth/introspect", "/auth/logout",
-			"/auth/refresh" };
+			"/auth/refresh" ,"/carts/**"};
 
 	private final String[] PUBLIC_GET_ENDPOINTS = { "/favicon.ico", "/login", "/admin/getusers", "/admin/adduser",
-			"/admin/detailuser", "/admin/updateuser", "/admin/roles", "/admin/categories","/products/**","/products" };
+			"/admin/detailuser", "/admin/updateuser", "/admin/roles", "/admin/categories","/products/**","/products","/carts/**"};
 
-	private final String[] PUBLIC_PUT_ENDPOINTS = {};
+	private final String[] PUBLIC_PUT_ENDPOINTS = {"/carts/**"};
+	
+	private final String[] PUBLIC_DELETE_ENDPOINTS = {"/carts/**"};
 	
 	@Value("${jwt.signerKey}")
 	private String SIGNER_KEY;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS)
-				.permitAll().requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
-				.requestMatchers("/images/**", "/css/**", "/js/**").permitAll().anyRequest().authenticated());
+		httpSecurity.authorizeHttpRequests(request -> request
+				.requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
+				.requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
+				.requestMatchers(HttpMethod.PUT, PUBLIC_PUT_ENDPOINTS).permitAll()
+				.requestMatchers(HttpMethod.DELETE, PUBLIC_DELETE_ENDPOINTS).permitAll()
+				.requestMatchers("/images/**", "/css/**", "/js/**").permitAll()
+				.anyRequest().authenticated());
 
 		httpSecurity.oauth2ResourceServer(oauth2 -> oauth2
 				.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())

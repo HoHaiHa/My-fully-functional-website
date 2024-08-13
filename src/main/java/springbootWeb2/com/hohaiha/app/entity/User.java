@@ -28,4 +28,7 @@ public class User {
     private String phone;
     @ManyToMany
     private Set<Role> roles ;
+    @OneToOne
+    private Cart cart;
+    
 }

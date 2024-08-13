@@ -26,6 +26,7 @@ import springbootWeb2.com.hohaiha.app.dto.request.UserCreationRequest;
 import springbootWeb2.com.hohaiha.app.dto.request.UserUpdateRequest;
 import springbootWeb2.com.hohaiha.app.dto.response.PageRespose;
 import springbootWeb2.com.hohaiha.app.dto.response.UserResponse;
+import springbootWeb2.com.hohaiha.app.entity.Cart;
 import springbootWeb2.com.hohaiha.app.entity.Permission;
 import springbootWeb2.com.hohaiha.app.entity.Role;
 import springbootWeb2.com.hohaiha.app.entity.User;
@@ -48,6 +49,7 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	@Autowired
 	private PageMapper pageMapper;
+	
 
 	// private PasswordEncoder passwordEncoder;
 
@@ -60,12 +62,17 @@ public class UserServiceImpl implements UserService {
 		Role role = Role.builder().name("USER").description("user role").build();
 
 		user.setRoles(new HashSet<>(Arrays.asList(role)));
-
+		
+		Cart cart = new Cart();
+		user.setCart(cart);
+		
 		try {
 			user = userRepository.save(user);
 		} catch (DataIntegrityViolationException exception) {
 			throw new AppException(ErrorCode.USER_EXISTED);
 		}
+		
+		
 
 		return userMapper.toUserResponse(user);
 	}
@@ -79,6 +86,9 @@ public class UserServiceImpl implements UserService {
 
 		var roles = roleRepository.findAllById(request.getRoles());
 		user.setRoles(new HashSet<>(roles));
+		
+		Cart cart = new Cart();
+		user.setCart(cart);
 
 		try {
 			user = userRepository.save(user);

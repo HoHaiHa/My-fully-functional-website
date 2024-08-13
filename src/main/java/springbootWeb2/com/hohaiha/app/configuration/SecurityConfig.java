@@ -1,7 +1,5 @@
 package springbootWeb2.com.hohaiha.app.configuration;
 
-import java.util.Arrays;
-import java.util.Collections;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -21,20 +19,20 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-	private final String[] PUBLIC_POST_ENDPOINTS = {
-			"/users", "/auth/token", "/auth/introspect", "/auth/logout",
+	private final String[] PUBLIC_POST_ENDPOINTS = { "/users", "/auth/token", "/auth/introspect", "/auth/logout",
 			"/auth/refresh" };
 
 	private final String[] PUBLIC_GET_ENDPOINTS = { "/favicon.ico", "/login", "/admin/getusers", "/admin/adduser",
-			"/admin/detailuser", "/admin/updateuser","/admin/roles","/admin/categories" };
+			"/admin/detailuser", "/admin/updateuser", "/admin/roles", "/admin/categories","/products/**","/products" };
 
+	private final String[] PUBLIC_PUT_ENDPOINTS = {};
+	
 	@Value("${jwt.signerKey}")
 	private String SIGNER_KEY;
 

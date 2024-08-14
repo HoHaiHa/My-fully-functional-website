@@ -26,10 +26,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableMethodSecurity
 public class SecurityConfig {
 	private final String[] PUBLIC_POST_ENDPOINTS = { "/users", "/auth/token", "/auth/introspect", "/auth/logout",
-			"/auth/refresh" ,"/carts/**"};
+			"/auth/refresh" ,"/carts/**","/orders"};
 
-	private final String[] PUBLIC_GET_ENDPOINTS = { "/favicon.ico", "/login", "/admin/getusers", "/admin/adduser",
-			"/admin/detailuser", "/admin/updateuser", "/admin/roles", "/admin/categories","/products/**","/products","/carts/**"};
+	private final String[] PUBLIC_GET_ENDPOINTS = { "/favicon.ico", "/login", "/admin/users", "/admin/adduser",
+			"/admin/detailuser", "/admin/updateuser", "/admin/roles", "/admin/categories","/products/**","/products","/carts/**","/orders","/orders/**"};
 
 	private final String[] PUBLIC_PUT_ENDPOINTS = {"/carts/**"};
 	

@@ -1,32 +1,22 @@
-package springbootWeb2.com.hohaiha.app.entity;
+package springbootWeb2.com.hohaiha.app.dto.response;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import springbootWeb2.com.hohaiha.app.dto.request.RoleRequest;
+import springbootWeb2.com.hohaiha.app.entity.Item;
+import springbootWeb2.com.hohaiha.app.entity.User;
 
-@Getter
-@Setter
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Orders {
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+@Builder
+public class OrdersResponse {
 	private String id;
 	private int totalQuantity;
 	private int discount;
@@ -39,8 +29,6 @@ public class Orders {
 	private String notes;
 	private String paymentMethod;
 	private String status;
-	@OneToMany
 	private List<Item> item;
-	@ManyToOne
 	private User user;
 }

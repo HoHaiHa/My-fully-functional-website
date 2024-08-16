@@ -1,5 +1,7 @@
 package springbootWeb2.com.hohaiha.app.dto.response;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,9 +24,10 @@ public class ProductResponse {
 	private String feature;
 	private String size;
 	private String brand;
+	private Date creationDate;
 	
 	private Category category;
-	private String Color;
+	private String color;
 	
 	private boolean hot;
 }

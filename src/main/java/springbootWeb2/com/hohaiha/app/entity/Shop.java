@@ -20,8 +20,8 @@ public class Shop {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
+	private String img;
 	private String phone;
 	private String address;
-	private String img;
 	private String status;
 }

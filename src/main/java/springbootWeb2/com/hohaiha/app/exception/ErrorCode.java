@@ -22,7 +22,8 @@ public enum ErrorCode {
     ITEM_NOT_EXISTED(1005, "item not existed", HttpStatus.BAD_REQUEST),
     CART_NOT_EXISTED(1005, "Cart not existed", HttpStatus.NOT_FOUND),
    	ORDERS_NOT_EXISTED(1005, "Orders not existed", HttpStatus.NOT_FOUND),
-    ;
+   	ERROR_UPLOAD_PRODUCTFILE(1003, "can't upload product file", HttpStatus.BAD_REQUEST),
+   	;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
         this.code = code;

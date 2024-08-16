@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 	public ProductResponse createProduct(ProductRequest request) {
 		Product product = productMapper.toProduct(request);
 
-		Category category = categoryRepository.findById(request.getCategory())
+		Category category = categoryRepository.findById(request.getCategory().trim())
 				.orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_EXISTED));
 		product.setCategory(category);
 

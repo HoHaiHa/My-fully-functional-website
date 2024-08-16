@@ -23,7 +23,8 @@ public class ProductMapperImpl implements ProductMapper{
 				.size(request.getSize())
 				.brand(request.getBrand())
 				.hot(request.isHot())
-				.Color(request.getColor())
+				.color(request.getColor())
+				.creationDate(request.getCreationDate())
 				.build();
 	}
 
@@ -42,8 +43,9 @@ public class ProductMapperImpl implements ProductMapper{
 				.size(product.getSize())
 				.brand(product.getBrand())
 				.category(product.getCategory())
-				.Color(product.getColor())
+				.color(product.getColor())
 				.hot(product.isHot())
+				.creationDate(product.getCreationDate())
 				.build();
 	}
 

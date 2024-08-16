@@ -38,6 +38,13 @@ public class CategoryController {
 	                .result(categoryService.getAll())
 	                .build();
 	    }
+	    
+	    @GetMapping("/{name}")
+	    ApiResponse<CategoryResponse> getCategory(@PathVariable String name) {
+	        return ApiResponse.<CategoryResponse>builder()
+	                .result(categoryService.getCategory(name))
+	                .build();
+	    }
 
 	    @DeleteMapping("/{category}")
 	    ApiResponse<Void> delete(@PathVariable String category) {

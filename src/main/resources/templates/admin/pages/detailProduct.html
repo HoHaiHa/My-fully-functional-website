@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMIN LALASHOP manager</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" />
+<script type="module" th:src="@{/js/admin/detailUser.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div th:insert="~{admin/fragments/adminFragments :: header}"></div>
+
+	<div class="container-fluid vh-100">
+		<div class="row h-100">
+			<div class="col-2  bg-secondary text-white "
+				th:insert="~{admin/fragments/adminFragments :: menu}"></div>
+
+
+			<div class="col-10 text-white content">
+			<H2 style="color:black">Chi tiết người dùng</H2>
+				<div class="container col-10 mx-auto">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td class="col-3">Ảnh</td>
+								<td id="output_img"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Id</td>
+								<td id="output_id"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Tên </td>
+								<td id="output_name"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Giá</td>
+								<td id="output_price"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Descriptions</td>
+								<td id="output_description"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Chất liệu</td>
+								<td id="output_phone"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Số lượng</td>
+								<td id="output_role"></td>
+							</tr>
+
+						</tbody>
+					</table>
+					<div>
+						<button type="button" class="btn btn-primary col-2" id="btn_back">Quay
+							lại</button>
+						<button type="button" class="btn btn-primary col-2" id="btn_update">Sửa</button>
+						<a type="button" class="btn btn-secondary col-2" id="btn_delete">Xoá</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

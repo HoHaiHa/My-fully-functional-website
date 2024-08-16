@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import springbootWeb2.com.hohaiha.app.dto.request.CategoryRequest;
 import springbootWeb2.com.hohaiha.app.dto.response.CategoryResponse;
 import springbootWeb2.com.hohaiha.app.entity.Category;
+import springbootWeb2.com.hohaiha.app.exception.AppException;
+import springbootWeb2.com.hohaiha.app.exception.ErrorCode;
 import springbootWeb2.com.hohaiha.app.mapper.CategoryMapper;
 import springbootWeb2.com.hohaiha.app.repository.CategoryRepository;
 
@@ -40,6 +42,11 @@ public class CategoryServiceImpl implements CategoryService{
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(String Category) {
 		categoryRepository.deleteById(Category);
+	}
+
+	@Override
+	public CategoryResponse getCategory(String name) {
+		return categoryMapper.toCategoryResponse(categoryRepository.findById(name).orElseThrow(()-> new AppException(ErrorCode.CATEGORY_NOT_EXISTED)));
 	}
 
 }

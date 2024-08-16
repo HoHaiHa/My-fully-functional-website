@@ -1,6 +1,8 @@
 package springbootWeb2.com.hohaiha.app.dto.request;
 
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +25,8 @@ public class ProductRequest {
 	private String brand;
 	
 	private String category;
-	private String Color;
+	private String color;
+	private Date creationDate;
 	
 	private boolean hot;
 }

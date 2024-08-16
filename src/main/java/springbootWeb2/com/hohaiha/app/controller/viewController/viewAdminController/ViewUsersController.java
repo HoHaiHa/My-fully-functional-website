@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class SetUserController {
+public class ViewUsersController {
 	@GetMapping("/users")
 	public String getUsers() {
 		return "/admin/pages/users";

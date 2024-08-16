@@ -1,5 +1,7 @@
 package springbootWeb2.com.hohaiha.app.entity;
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,8 +28,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(name = "name", unique = true, columnDefinition = "VARCHAR(500) COLLATE utf8mb4_unicode_ci")
-	private String name;
+	private String name;//
 	private String img;
 	private long price;
 	private String descriptions;
@@ -37,11 +38,12 @@ public class Product {
 	private String feature;
 	private String size;
 	private String brand;
+	private Date creationDate ;//
 	
 	@ManyToOne
-	private Category category;
+	private Category category;//
 	
-	private String Color;
+	private String color;
 	
 	private boolean hot;
 	

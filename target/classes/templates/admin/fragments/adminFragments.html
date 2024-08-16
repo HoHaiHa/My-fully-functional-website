@@ -47,6 +47,12 @@
 			<li><hr></li>
 			<li class="nav-item"><a
 				class="nav-link active h6 text-white p-0" aria-current="page"
+				id="product-btn" style="transition: none;"
+				onmousedown="this.style.color='white'; this.style.outline='none';">Sản
+					phẩm</a></li>
+			<li><hr></li>
+			<li class="nav-item"><a
+				class="nav-link active h6 text-white p-0" aria-current="page"
 				id="category-btn" style="transition: none;"
 				onmousedown="this.style.color='white'; this.style.outline='none';">Danh
 					mục sản phẩm</a></li>
@@ -64,8 +70,9 @@
 			import baseUrl from "../js/config.js";
 
 			$(document).ready(()=>{
-				$('#user-btn').attr('href',`${baseUrl}/admin/getusers`)
+				$('#user-btn').attr('href',`${baseUrl}/admin/users`)
 				$('#role-btn').attr('href',`${baseUrl}/admin/roles`)
+				$('#product-btn').attr('href',`${baseUrl}/admin/products`)
 				$('#category-btn').attr('href',`${baseUrl}/admin/categories`)
 			})
 		</script>

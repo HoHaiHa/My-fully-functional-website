@@ -27,5 +27,11 @@ jwt:
   valid-duration: 7200 # in second
   refreshable-duration: 36000 # in seconds
 
+cloudinary:
+  cloud:
+    name: dgjfykqfv
+  api:
+    key: 988537141417469
+    secret: NH68shMfxQqO6AENrtYKu5QPtVs
 
 

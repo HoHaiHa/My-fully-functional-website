@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 		try {
 			productRepository.save(product);
 		} catch (DataIntegrityViolationException exception) {
-			throw new AppException(ErrorCode.USER_EXISTED);
+			throw new AppException(ErrorCode.PRODUCT_EXISTED);
 		}
 		return productMapper.toProductResponse(product);
 	}
@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
 		try {
 			productRepository.save(product);
 		} catch (DataIntegrityViolationException exception) {
-			throw new AppException(ErrorCode.USER_EXISTED);
+			throw new AppException(ErrorCode.PRODUCT_EXISTED);
 		}
 		return productMapper.toProductResponse(product);
 	}

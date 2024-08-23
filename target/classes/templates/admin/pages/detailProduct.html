@@ -6,7 +6,7 @@
 <title>ADMIN LALASHOP manager</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" />
-<script type="module" th:src="@{/js/admin/detailUser.js}"></script>
+<script type="module" th:src="@{/js/admin/detailProduct.js}"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
@@ -21,46 +21,77 @@
 
 
 			<div class="col-10 text-white content">
-			<H2 style="color:black">Chi tiết người dùng</H2>
+				<H2 style="color: black">Chi tiết sản phẩm</H2>
 				<div class="container col-10 mx-auto">
 					<table class="table">
 						<tbody>
 							<tr>
 								<td class="col-3">Ảnh</td>
-								<td id="output_img"></td>
+								<td id="output-img"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Id</td>
-								<td id="output_id"></td>
+								<td id="output-id"></td>
 							</tr>
 							<tr>
-								<td class="col-3">Tên </td>
-								<td id="output_name"></td>
+								<td class="col-3">Tên</td>
+								<td id="output-name"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Giá</td>
-								<td id="output_price"></td>
+								<td id="output-price"></td>
 							</tr>
 							<tr>
-								<td class="col-3">Descriptions</td>
-								<td id="output_description"></td>
+								<td class="col-3">Mô tả</td>
+								<td id="output-description"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Chất liệu</td>
-								<td id="output_phone"></td>
+								<td id="output-metarial"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Số lượng</td>
-								<td id="output_role"></td>
+								<td id="output-quantity"></td>
 							</tr>
-
+							<tr>
+								<td class="col-3">Giảm giá</td>
+								<td id="output-discount"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Tính năng</td>
+								<td id="output-feature"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Kích cỡ</td>
+								<td id="output-size"></td>
+							</tr>
+							<tr>
+								<td class="col-3">thương hiệu</td>
+								<td id="output-brand"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Ngày thêm</td>
+								<td id="output-CreationDate"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Danh mục</td>
+								<td id="output-category"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Màu sắc</td>
+								<td id="output-color"></td>
+							</tr>
+							<tr>
+								<td class="col-3">Bán Chạy</td>
+								<td id="output-hot"></td>
+							</tr>
 						</tbody>
 					</table>
 					<div>
 						<button type="button" class="btn btn-primary col-2" id="btn_back">Quay
 							lại</button>
-						<button type="button" class="btn btn-primary col-2" id="btn_update">Sửa</button>
-						<a type="button" class="btn btn-secondary col-2" id="btn_delete">Xoá</a>
+						<button type="button" class="btn btn-primary col-2"
+							id="btn_update">Sửa</button>
 					</div>
 				</div>
 			</div>

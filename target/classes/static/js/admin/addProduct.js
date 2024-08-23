@@ -71,7 +71,7 @@ $(document).ready(() => {
 			const formData = new FormData();
 			formData.append('file', fileInput.files[0]);
 
-			let addApi = `${baseUrl}/upload/productimg`;
+			let addApi = `${baseUrl}/images`;
 
 			let addOptions = {
 				method: 'POST',
@@ -107,7 +107,7 @@ $(document).ready(() => {
 
 			var data = {
 				name: $('#input-name').val(),
-				img: img.result, // Sử dụng img.result để lưu đường dẫn ảnh
+				img: img.result.url, // Sử dụng img.result để lưu đường dẫn ảnh
 				price: $('#input-price').val(),
 				descriptions: $('#input-descriptions').val(),
 				material: $('#input-material').val(),

@@ -19,6 +19,10 @@ public class ViewProductsController {
 	public String addProduct() {
 		return "/admin/pages/addProduct";
 	}
+	@GetMapping("/updateProduct")
+	public String updateProduct() {
+		return "/admin/pages/updateProduct";
+	}
 	
 
 }

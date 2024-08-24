@@ -40,6 +40,10 @@ $(document).ready(() => {
 		})
 	}
 
+	//xử lý thẻ input hiển thị ngày hiện tại
+	const today = new Date().toISOString().split('T')[0]; // Lấy ngày hiện tại định dạng yyyy-mm-dd
+	$('#input-date').val(today); // Gán giá trị ngày hiện tại cho thẻ input
+
 	//xử lý hiển thị ảnh khi chọn
 	$('#input-img').change(function(event) {
 		const file = event.target.files[0];
@@ -117,7 +121,7 @@ $(document).ready(() => {
 				brand: $('#input-brand').val(),
 				category: $('#input-category').val().trim(),
 				color: $('#input-color').val(),
-				creationDate: $('#input-creationDate').val(),
+				creationDate: $('#input-date').val(),
 				hot: $('#input-hot').val(),
 			}
 

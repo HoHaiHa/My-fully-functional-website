@@ -22,6 +22,11 @@
 .is-invalid {
 	border-color: red;
 }
+td{
+	width:40%;
+}
+
+
 </style>
 <body>
 	<div th:insert="~{admin/fragments/adminFragments :: header}"></div>
@@ -40,63 +45,64 @@
 						<tbody>
 							<tr>
 								<td class="col-3">ảnh</td>
-								<td><input type="file" class="col-4" id="input-img"></td>
-								<td><div  id="output-img" style="width:100px;height:80px;"></div></td>
+								<td><input type="file" class="col-11" id="input-img"></td>
+								<td><div id="output-img"
+										style="width: 150px; height: 130px;"></div></td>
 							</tr>
 							<tr>
 								<td class="col-3">Tên sản phẩm</td>
-								<td><input class="col-4" id="input-name"></td>
+								<td><input class="col-11" id="input-name"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Danh mục sản phẩm</td>
-								<td><select class="col-4" id="input-category"></select></td>
+								<td><select class="col-11" id="input-category"></select></td>
 							</tr>
 							<tr>
 								<td class="col-3">Mới</td>
-								<td><select class="col-4" id="input-hot">
-									<option>True</option>
-									<option>False</option>
+								<td><select class="col-11" id="input-hot">
+										<option>True</option>
+										<option>False</option>
 								</select></td>
 							</tr>
 							<tr>
 								<td class="col-3">Giá sản phẩm</td>
-								<td><input class="col-4" id="input-price"></td>
+								<td><input class="col-11" id="input-price"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Mô tả</td>
-								<td><input class="col-4" id="input-descriptions"></td>
+								<td><input class="col-11" id="input-descriptions"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Chất liệu</td>
-								<td><input class="col-4" id="input-metarial"></td>
+								<td><input class="col-11" id="input-metarial"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Số lượng</td>
-								<td><input class="col-4" id="input-quantity"></td>
+								<td><input class="col-11" id="input-quantity"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Giảm giá</td>
-								<td><input class="col-4" id="input-discount"></td>
+								<td><input class="col-11" id="input-discount"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Tính năng</td>
-								<td><input class="col-4" id="input-feature"></td>
+								<td><input class="col-11" id="input-feature"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Kích cỡ</td>
-								<td><input class="col-4" id="input-size"></td>
+								<td><input class="col-11" id="input-size"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Hãng</td>
-								<td><input class="col-4" id="input-brand"></td>
+								<td><input class="col-11" id="input-brand"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Màu sắc</td>
-								<td><input class="col-4" id="input-color"></td>
+								<td><input class="col-11" id="input-color"></td>
 							</tr>
 							<tr>
 								<td class="col-3">Ngày tạo</td>
-								<td><input type="date" class="col-4" id="input-date"></td>
+								<td><input type="date" class="col-11" id="input-date"></td>
 							</tr>
 						</tbody>
 					</table>

@@ -29,7 +29,7 @@ public class SecurityConfig {
 
 	private final String[] PUBLIC_GET_ENDPOINTS = { "/favicon.ico", "/login", "/admin/users", "/admin/adduser",
 			"/admin/detailuser", "/admin/updateuser", "/admin/roles", "/admin/categories", "/products/**", "/products",
-			"/carts/**", "/orders", "/orders/**","/admin/products","/admin/detailProduct","/admin/addProduct"};
+			"/carts/**", "/orders", "/orders/**","/admin/**","/admin/detailProduct","/admin/addProduct"};
 
 	private final String[] PUBLIC_PUT_ENDPOINTS = { "/carts/**" };
 

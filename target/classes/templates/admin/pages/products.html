@@ -32,7 +32,13 @@ table {
 			<div class="col-10 text-white content container">
 				<div class="row">
 				<H2 class="col-7" style="color: black">Danh sách sản phẩm</H2>
-				<input class="col-2 float-left" id="input-search" placeholder="Nhập tên sản phẩm">
+				<select id="select-categroy" class="col-1" style="padding:0;height:30px;margin:10px;">
+					<option  disabled selected>Sắp xếp</option>
+				</select>
+				<select id="select-categroy" class="col-1" style="padding:0;height:30px;margin:10px;">
+					<option  disabled selected>Danh mục</option>
+				</select>
+				<input class="col-2 float-right" id="input-search" placeholder="Nhập tên sản phẩm">
 				</div>
 				<table class="table " id="list-products"
 					style="border: none; background-color: white">

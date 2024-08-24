@@ -61,16 +61,55 @@ document.addEventListener('DOMContentLoaded', () => {
 				$('#output-quantity').html(product.result.quantity);
 				$('#output-discount').html(product.result.discount);
 				$('#output-feature').html(product.result.feature);
-				$('#output-CreationDate').html(product.result.CreationDate);
+				$('#output-date').text(product.result.creationDate);
 				$('#output-color').html(product.result.color);
 				$('#output-hot').html(product.result.hot);
-				
+
 			} else {
 				alert('Dữ liệu người dùng không tồn tại.');
 			}
 		});
 	}
 
+	//xử lý nút xoá
+	function deleteProduct(productId) {
+		let deleteApi = `${baseUrl}/products/${productId}`
+
+		let deleteOptions = {
+			method: 'DELETE',
+			headers: {
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json'
+			}
+
+		}
+
+		fetch(deleteApi, deleteOptions)
+			.then(response => {
+				if (!response) alert('delete fetch response was not ok')
+			})
+			.catch(error => {
+				consol.log(error)
+			})
+
+	}
+	$("#btn-delete").click(() => {
+		let userConfirm = confirm('Xoá sản phẩm này')
+		if (userConfirm) {
+			deleteProduct(productId);
+			window.history.back()
+		}
+	})
+
+	//xử lý nút quay lại
+	$("#btn-back").click(() => {
+		window.history.back()
+	})
+		
+	//nút sửa
+	$("#btn-update").click(() => {
+		window.location.href = `${baseUrl}/admin/updateProduct?productid=${productId}`
+	})
 
 
 })

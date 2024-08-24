@@ -61,10 +61,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ProductResponse updateProduct(String id, ProductRequest request) {
-		productRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_EXISTED));
-
-		Product product = productMapper.toProduct(request);
-
+		Product oldProduct = productRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_EXISTED));
+		
+		Product product = productMapper.toProductFromUpdate(oldProduct,request);
+		
 		Category category = categoryRepository.findById(request.getCategory())
 				.orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_EXISTED));
 		product.setCategory(category);

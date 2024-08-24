@@ -49,4 +49,24 @@ public class ProductMapperImpl implements ProductMapper{
 				.build();
 	}
 
+	@Override
+	public Product toProductFromUpdate(Product product, ProductRequest request) {
+		product.setName(request.getName());
+		product.setImg(request.getImg());
+		product.setPrice(request.getPrice());
+		product.setDescriptions(request.getDescriptions());
+		product.setMaterial(request.getMaterial());
+		product.setQuantity(request.getQuantity());
+		product.setDescriptions(request.getDescriptions());
+		product.setFeature(request.getFeature());
+		product.setSize(request.getSize());
+		product.setBrand(request.getBrand());
+		product.setColor(request.getColor());
+		product.setHot(request.isHot());
+		product.setCreationDate(request.getCreationDate() );
+		return product;
+	}
+
+	
+
 }

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import springbootWeb2.com.hohaiha.app.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, String>{
-	Page<Product> findByNameContaining(String name, Pageable pageable);
+	Page<Product> searchAndFilter(String name, Pageable pageable);
 }

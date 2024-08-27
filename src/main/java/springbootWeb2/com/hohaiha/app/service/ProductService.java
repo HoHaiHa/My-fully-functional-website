@@ -16,5 +16,5 @@ public interface ProductService {
 	public ProductResponse getProduct(String id);
 	public void deleteProduct(String id);
 	public ProductResponse updateProduct(String id,ProductRequest request);
-	public Page<ProductResponse> findByNameContaining(String name, int page, int size);
+	public Page<ProductResponse> searchAndFilter(String name, int page, int size);
 }

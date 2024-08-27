@@ -62,7 +62,7 @@ public class ProductController {
 	@GetMapping("/search")
 	ApiResponse<Page<ProductResponse>> findByName(@RequestParam String name,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
 		return ApiResponse.<Page<ProductResponse>>builder()
-				.result(productService.findByNameContaining(name,page,size))
+				.result(productService.searchAndFilter(name,page,size))
 				.build();
 	}
 	

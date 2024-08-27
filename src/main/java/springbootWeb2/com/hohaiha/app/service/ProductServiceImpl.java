@@ -77,9 +77,9 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.toProductResponse(product);
 	}
 	
-	public Page<ProductResponse> findByNameContaining(String name, int page, int size){
+	public Page<ProductResponse> searchAndFilter(String name, int page, int size){
 		Pageable pageable = PageRequest.of(page, size);
-		return productRepository.findByNameContaining(name, pageable).map(productMapper::toProductResponse);
+		return productRepository.searchAndFilter(name, pageable).map(productMapper::toProductResponse);
 	}
 
 }

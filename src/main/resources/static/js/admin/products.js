@@ -20,8 +20,42 @@ document.addEventListener('DOMContentLoaded', () => {
 	let page = 0;
 	let userApi = `${baseUrl}/products?page=${page}`;
 	let resultFetch = '';
-	let productId;
 
+	//xử lý hiển thị danh mục lên phần lọc 
+	let categoryApi = `${baseUrl}/categories`;
+
+	let categoryOptions = {
+		method: 'GET',
+		headers: {
+			'Authorization': `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	};
+
+	getCategory(rendeCategory);
+
+	function getCategory(callback) {
+		fetch(categoryApi, categoryOptions)
+			.then(response => {
+				if (!response.ok) throw new alert('get category response was not ok')
+				else return response.json()
+			})
+			.then(callback)
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+	}
+
+	function rendeCategory(categories) {
+		const listCateforyResult = categories.result;
+		$('#select-category').html("")
+
+		listCateforyResult.forEach((category) => {
+			$("#select-category").append(`<option>${category.name}</option>`);
+		})
+	}
+
+	//xử lý hiển thị sản phẩm
 	const options = {
 		method: 'GET',
 		headers: {
@@ -99,6 +133,134 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
+	//xử lý nút chuyển trang
+	//láy giá trị trả về
+
+	function getFetchResult(products) {
+		resultFetch = JSON.stringify(products);
+	}
+
+	function getSearchResult(products) {
+		searchResult = JSON.stringify(products);
+	}
+
+	let name = $("#input-search").val().trim()
+	let startDay = $("#input-startDay").val()
+	let endDay = $("#input-endDay").val()
+	let category = $("#select-category").val()
+
+	var selectedOption = $('#select-sort').find('option:selected');
+	var sortBy = selectedOption.data('sortby');
+	var direction = selectedOption.data('direction');
+
+	firstPageBtn.addEventListener('click', () => {
+		if ($("#input-search").val().trim() == "") {
+			page = 0;
+			userApi = `${baseUrl}/products?page=${page}`;
+			start();
+		}
+		else {
+			page = 0;
+			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}`;
+			search();
+		}
+
+	});
+
+	previousPageBtn.addEventListener('click', () => {
+		if ($("#input-search").val().trim() == "") {
+			const currentPage = JSON.parse(resultFetch)?.result?.number;
+			if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
+			page = currentPage - 1;
+			userApi = `${baseUrl}/products?page=${page}`;
+			start();
+		}
+		else {
+			const currentPage = JSON.parse(searchResult)?.result?.number;
+			if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
+			page = currentPage - 1;
+			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
+			search();
+		}
+	});
+
+	nextPageBtn.addEventListener('click', () => {
+		if ($("#input-search").val().trim() == "") {
+			const currentPage = JSON.parse(resultFetch)?.result?.number;
+			const totalPages = JSON.parse(resultFetch)?.page?.totalPages;
+			if (currentPage >= totalPages - 1) return; // Kiểm tra trang cuối cùng
+			page = currentPage + 1;
+			userApi = `${baseUrl}/products?page=${page}`;
+			start();
+		}
+		else {
+			const currentPage = JSON.parse(searchResult)?.result?.number;
+			const totalPages = JSON.parse(searchResult)?.page?.totalPages;
+			if (currentPage >= totalPages - 1) return; // Kiểm tra trang cuối cùng
+			page = currentPage + 1;
+			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
+			search();
+		}
+
+	});
+
+	lastPageBtn.addEventListener('click', () => {
+		if ($("#input-search").val().trim() == "") {
+			page = JSON.parse(resultFetch)?.result?.totalPages - 1;
+			userApi = `${baseUrl}/products?page=${page}`;
+			start();
+		}
+		else {
+			page = JSON.parse(searchResult)?.result?.totalPages - 1;
+			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
+			search();
+		}
+
+	});
+
+	//xử lý nút xoá
+	function deleteProduct(productId) {
+		let deleteApi = `${baseUrl}/products/${productId}`
+
+		let deleteOptions = {
+			method: 'DELETE',
+			headers: {
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json'
+			}
+
+		}
+
+		fetch(deleteApi, deleteOptions)
+			.then(response => {
+				if (!response) alert('delete fetch response was not ok')
+			})
+			.catch(error => {
+				consol.log(error)
+			})
+
+	}
+
+	$('#list-products').on('click', '.product_info', function(event) {
+		// Xử lý khi nhấn nút xóa
+		if ($(event.target).is('.btn-delete')) {
+			let userConfirm = confirm('Xoá sản phẩm này')
+			if (userConfirm) {
+				const productId = $(this).data('product-id');
+				deleteProduct(productId);
+				$(this).fadeOut();
+			}
+		}
+		// Xử lý khi nhấn vào sản phẩm để xem chi tiết
+		else {
+			const productId = $(this).data('product-id');
+			window.location.href = `${baseUrl}/admin/detailProduct?productid=${productId}`
+		}
+	});
+
+
 	//xử lý ô tìm kiếm
 
 	$("#input-search").keyup(search)
@@ -106,9 +268,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	function search() {
 
-		var name = $("#input-search").val().trim()
+		let name = $("#input-search").val().trim()
+		let startDay = $("#input-startDay").val()
+		let endDay = $("#input-endDay").val()
+		let category = $("#select-category").val()
 
-		var searchApi = `${baseUrl}/products/search?name=${name}`
+		var selectedOption = $('#select-sort').find('option:selected');
+		var sortBy = selectedOption.data('sortby');
+		var direction = selectedOption.data('direction');
+
+
+		var searchApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}`
 
 		var searchOptions = {
 			method: 'GET',
@@ -175,127 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			listProducts.appendChild(row);
 		});
 	}
-
-	//xử lý nút chuyển trang
-	//láy giá trị trả về
-
-	function getFetchResult(products) {
-		resultFetch = JSON.stringify(products);
-	}
-
-	function getSearchResult(products) {
-		searchResult = JSON.stringify(products);
-	}
-
-	let name = $("#input-search").val().trim()
-
-	firstPageBtn.addEventListener('click', () => {
-		if ($("#input-search").val().trim() == "") {
-			page = 0;
-			userApi = `${baseUrl}/products?page=${page}`;
-			start();
-		}
-		else {
-			page = 0;
-			userApi = `${baseUrl}/products/search?name=${name}`;
-			search();
-		}
-
-	});
-
-	previousPageBtn.addEventListener('click', () => {
-		if ($("#input-search").val().trim() == "") {
-			const currentPage = JSON.parse(resultFetch)?.result?.number;
-			if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
-			page = currentPage - 1;
-			userApi = `${baseUrl}/products?page=${page}`;
-			start();
-		}
-		else {
-			const currentPage = JSON.parse(searchResult)?.result?.number;
-			if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
-			page = currentPage - 1;
-			userApi = `${baseUrl}/products/search?name=${name}&page=${page}`;
-			search();
-		}
-	});
-
-	nextPageBtn.addEventListener('click', () => {
-		if ($("#input-search").val().trim() == "") {
-			const currentPage = JSON.parse(resultFetch)?.result?.number;
-			const totalPages = JSON.parse(resultFetch)?.page?.totalPages;
-			if (currentPage >= totalPages - 1) return; // Kiểm tra trang cuối cùng
-			page = currentPage + 1;
-			userApi = `${baseUrl}/products?page=${page}`;
-			start();
-		}
-		else {
-			const currentPage = JSON.parse(searchResult)?.result?.number;
-			const totalPages = JSON.parse(searchResult)?.page?.totalPages;
-			if (currentPage >= totalPages - 1) return; // Kiểm tra trang cuối cùng
-			page = currentPage + 1;
-			userApi = `${baseUrl}/products/search?name=${name}&page=${page}`;
-			search();
-		}
-
-	});
-
-	lastPageBtn.addEventListener('click', () => {
-		if ($("#input-search").val().trim() == "") {
-			page = JSON.parse(resultFetch)?.result?.totalPages - 1;
-			userApi = `${baseUrl}/products?page=${page}`;
-			start();
-		}
-		else {
-			page = JSON.parse(searchResult)?.result?.totalPages - 1;
-			userApi = `${baseUrl}/products/search?name=${name}&page=${page}`;
-			search();
-		}
-
-	});
-
-	//xử lý nút xoá
-	function deleteProduct(productId) {
-		let deleteApi = `${baseUrl}/products/${productId}`
-
-		let deleteOptions = {
-			method: 'DELETE',
-			headers: {
-				'Authorization': `Bearer ${token}`,
-				'Content-Type': 'application/json'
-			}
-
-		}
-
-		fetch(deleteApi, deleteOptions)
-			.then(response => {
-				if (!response) alert('delete fetch response was not ok')
-			})
-			.catch(error => {
-				consol.log(error)
-			})
-
-	}
-
-	$('#list-products').on('click', '.product_info', function(event) {
-		// Xử lý khi nhấn nút xóa
-		if ($(event.target).is('.btn-delete')) {
-			let userConfirm = confirm('Xoá sản phẩm này')
-			if(userConfirm){
-				const productId = $(this).data('product-id');
-				deleteProduct(productId);
-				$(this).fadeOut();
-			}
-		}
-		// Xử lý khi nhấn vào sản phẩm để xem chi tiết
-		else {
-			const productId = $(this).data('product-id');
-			window.location.href=`${baseUrl}/admin/detailProduct?productid=${productId}`
-		}
-	});
-
-
-
 
 
 });

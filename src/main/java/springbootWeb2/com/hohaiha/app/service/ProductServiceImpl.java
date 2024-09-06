@@ -1,11 +1,14 @@
 package springbootWeb2.com.hohaiha.app.service;
 
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
@@ -77,9 +80,13 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.toProductResponse(product);
 	}
 	
-	public Page<ProductResponse> searchAndFilter(String name, int page, int size){
-		Pageable pageable = PageRequest.of(page, size);
-		return productRepository.searchAndFilter(name, pageable).map(productMapper::toProductResponse);
+	public Page<ProductResponse> searchAndFilter(int page, int size,String name, Date startDay,Date endDay,String category,String sortBy,String derection){
+	    // Xử lý sort
+	    Sort.Direction direction = Sort.Direction.fromString(derection);
+	    Sort sortOrder = Sort.by(direction, sortBy);
+		
+		Pageable pageable = PageRequest.of(page, size,sortOrder);
+		return productRepository.searchAndFilter( pageable,name,startDay,endDay,category).map(productMapper::toProductResponse);
 	}
 
 }

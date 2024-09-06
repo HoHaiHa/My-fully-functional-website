@@ -1,7 +1,11 @@
 package springbootWeb2.com.hohaiha.app.controller.apiController;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,10 +63,29 @@ public class ProductController {
 				.build();
 	}
 	
-	@GetMapping("/search")
-	ApiResponse<Page<ProductResponse>> findByName(@RequestParam String name,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
+	@GetMapping("/filter")
+	ApiResponse<Page<ProductResponse>> filterProduct(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
+			@RequestParam(defaultValue = "") String name,
+			@RequestParam(required = false) Date startDay,
+			@RequestParam(required = false) Date endDay,
+			@RequestParam(required = false) String category,
+			@RequestParam(defaultValue = "creationDate") String sortBy,
+			@RequestParam(defaultValue = "DESC") String derection
+			
+			) {
+		if (startDay == null) {
+	        // Khởi tạo ngày 01/01/1990
+	        Calendar cal = Calendar.getInstance();
+	        cal.set(1990, Calendar.JANUARY, 1); // Tháng 1 trong Calendar là 0, nên sử dụng Calendar.JANUARY
+	        startDay = new Date(cal.getTimeInMillis());
+	    }
+		if (endDay == null) {
+			endDay = new Date(System.currentTimeMillis()); // Gán giá trị mặc định là ngày hôm nay
+	    }
 		return ApiResponse.<Page<ProductResponse>>builder()
-				.result(productService.searchAndFilter(name,page,size))
+				.result(productService.searchAndFilter(page,size,name,startDay,endDay,category,sortBy,derection))
 				.build();
 	}
 	

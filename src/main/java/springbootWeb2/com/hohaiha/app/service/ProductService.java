@@ -1,5 +1,6 @@
 package springbootWeb2.com.hohaiha.app.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -16,5 +17,5 @@ public interface ProductService {
 	public ProductResponse getProduct(String id);
 	public void deleteProduct(String id);
 	public ProductResponse updateProduct(String id,ProductRequest request);
-	public Page<ProductResponse> searchAndFilter(String name, int page, int size);
+	public Page<ProductResponse> searchAndFilter(int page, int size,String name, Date startDay,Date endDay,String category,String sortBy,String derection);
 }

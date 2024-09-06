@@ -240,10 +240,7 @@ $(document).ready(() => {
 		if (userConfirm) {
 			try {
 				await saveProduct(); // Đảm bảo saveProduct trả về một Promise
-				let userConfirm2 = confirm('Lưu sản phẩm thành công! tiếp tục thêm sản phẩm?');
-				if (!userConfirm2) {
-					window.location.href = `${baseUrl}/admin/products`;
-				}
+				window.location.href = `${baseUrl}/admin/products`;
 			} catch (error) {
 				console.error('Error:', error);
 				// Không thực hiện confirm2 nếu có lỗi

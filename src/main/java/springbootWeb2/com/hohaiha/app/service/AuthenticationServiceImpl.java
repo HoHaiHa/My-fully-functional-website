@@ -6,11 +6,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.StringJoiner;
 import java.util.UUID;
-import java.util.function.Supplier;
-
-import javax.security.auth.Subject;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,7 +26,6 @@ import com.nimbusds.jwt.SignedJWT;
 import lombok.experimental.NonFinal;
 
 import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.JWTClaimsSet.Builder;
 
 import springbootWeb2.com.hohaiha.app.dto.request.AuthenticationRequest;
 import springbootWeb2.com.hohaiha.app.dto.request.IntrospectRequest;

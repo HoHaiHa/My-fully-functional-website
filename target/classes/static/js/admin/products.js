@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	function rendeCategory(categories) {
 		const listCateforyResult = categories.result;
-		$('#select-category').html("")
+		$('#select-category').html("<option selected></option>")
 
 		listCateforyResult.forEach((category) => {
 			$("#select-category").append(`<option>${category.name}</option>`);
@@ -156,38 +156,38 @@ document.addEventListener('DOMContentLoaded', () => {
 	var direction = selectedOption.data('direction');
 
 	firstPageBtn.addEventListener('click', () => {
-		if ($("#input-search").val().trim() == "") {
+		/*if ($("#input-search").val().trim() == "" ) {
 			page = 0;
 			userApi = `${baseUrl}/products?page=${page}`;
 			start();
 		}
-		else {
+		else {*/
 			page = 0;
 			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}`;
 			search();
-		}
+		//}
 
 	});
 
 	previousPageBtn.addEventListener('click', () => {
-		if ($("#input-search").val().trim() == "") {
+/*		if ($("#input-search").val().trim() == "") {
 			const currentPage = JSON.parse(resultFetch)?.result?.number;
 			if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
 			page = currentPage - 1;
 			userApi = `${baseUrl}/products?page=${page}`;
 			start();
 		}
-		else {
+		else {*/
 			const currentPage = JSON.parse(searchResult)?.result?.number;
 			if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
 			page = currentPage - 1;
 			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
 			search();
-		}
+		//}
 	});
 
 	nextPageBtn.addEventListener('click', () => {
-		if ($("#input-search").val().trim() == "") {
+		/*if ($("#input-search").val().trim() == "") {
 			const currentPage = JSON.parse(resultFetch)?.result?.number;
 			const totalPages = JSON.parse(resultFetch)?.page?.totalPages;
 			if (currentPage >= totalPages - 1) return; // Kiểm tra trang cuối cùng
@@ -195,28 +195,28 @@ document.addEventListener('DOMContentLoaded', () => {
 			userApi = `${baseUrl}/products?page=${page}`;
 			start();
 		}
-		else {
+		else {*/
 			const currentPage = JSON.parse(searchResult)?.result?.number;
 			const totalPages = JSON.parse(searchResult)?.page?.totalPages;
 			if (currentPage >= totalPages - 1) return; // Kiểm tra trang cuối cùng
 			page = currentPage + 1;
 			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
 			search();
-		}
+		//}
 
 	});
 
 	lastPageBtn.addEventListener('click', () => {
-		if ($("#input-search").val().trim() == "") {
+		/*if ($("#input-search").val().trim() == "") {
 			page = JSON.parse(resultFetch)?.result?.totalPages - 1;
 			userApi = `${baseUrl}/products?page=${page}`;
 			start();
 		}
-		else {
+		else {*/
 			page = JSON.parse(searchResult)?.result?.totalPages - 1;
 			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
 			search();
-		}
+		//}
 
 	});
 
@@ -264,6 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	//xử lý ô tìm kiếm
 
 	$("#input-search").keyup(search)
+	$("#input-startDay").change(search)
+	$("#input-endDay").change(search)
+	$("#select-sort").change(search)
+	$("#select-category").change(search)
 	var searchResult;
 
 	function search() {
@@ -276,9 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		var selectedOption = $('#select-sort').find('option:selected');
 		var sortBy = selectedOption.data('sortby');
 		var direction = selectedOption.data('direction');
-
-
+		
 		var searchApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}`
+
+		console.log(searchApi)
 
 		var searchOptions = {
 			method: 'GET',

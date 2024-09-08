@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMIN LALASHOP manager</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" />
+<script type="module" th:src="@{/js/admin/orders.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+td, th {
+	padding: 10px;
+}
+
+table {
+	margin: 20px
+}
+</style>
+
+<body>
+	<div th:insert="~{admin/fragments/adminFragments :: header}"></div>
+
+	<div class="container-fluid vh-100">
+		<div class="row h-100">
+			<div class="col-2  bg-secondary text-white "
+				th:insert="~{admin/fragments/adminFragments :: menu}"></div>
+
+
+			<div class="col-10 text-white content container">
+				<div class="row">
+					<H2 class="col-5" style="color: black">Danh sách đơn hàng</H2>
+					<input class="col-4 float-right" id="input-search"
+						placeholder="Tìm kiếm: Nhập tên sản phẩm" style="margin-left: 200px;height:34px">
+				</div>
+				<div class="text-dark">
+					<span style="margin-left: 4px">Chọn đơn hàng theo ngày: </span> 
+					<span style="margin-left: 10px ">Ngày bắt đầu </span> 
+					<input type="date" style="padding: 0; height: 30px;" id="input-startDay"> 
+					<span style="margin-left: 10px ">Ngày kết thúc </span> 
+					<input type="date" style="padding: 0; height: 30px;" id="input-endDay"> 
+					
+					<span style="margin-left: 10px ">Sắp xếp:</span> 
+					<select
+						id="select-sort" 
+						style="padding: 0; height: 30px; margin: 10px;width:150px;">
+						<option data-sortBy="" data-direction="" id="sort-option" selected>Chọn sắp xếp</option>
+						<option data-sortBy="creationDate" data-direction="DESC" >Ngày tạo mới đên cũ</option>
+						<option data-sortBy="creationDate" data-direction="ASC" >Ngày tạo cũ đến mới</option>
+						<option data-sortBy="price" data-direction="asc" >Tổng giá trị tăng</option>
+						<option data-sortBy="price" data-direction="desc" >Tổng giá trị giảm</option>
+						<option data-sortBy="price" data-direction="asc" >Tổng số lượng tăng</option>
+						<option data-sortBy="price" data-direction="desc" >Tổng số lượng giảm</option>
+					</select> 
+					<span>Trạng thái:</span> 
+					<select id="select-category" class="col-1"
+						style="padding: 0; height: 30px; margin: 10px;">
+						<option data-status="pending" selected>Chưa xử lý</option>
+						<option data-status="progress">Đang xử lý</option>
+						<option data-status="processed">Đã xử lý</option>
+					</select>
+				</div>
+				<table class="table " id="list-products"
+					style="border: none; background-color: white">
+				</table>
+				<div class="container">
+					<div class="row">
+						<nav aria-label="Page navigation" class="mx-auto col-10">
+							<ul class="pagination">
+								<li class="page-item"><a class="page-link" href="#"
+									id="page_first">First</a></li>
+								<li class="page-item"><a class="page-link" href="#"
+									id="page_previous">Previous</a></li>
+								<li class="page-item"><a class="page-link" href="#"
+									id="page_next">Next</a></li>
+								<li class="page-item"><a class="page-link" href="#"
+									id="page_last">Last</a></li>
+							</ul>
+						</nav>
+
+						<a type="button" class="btn btn-primary btn-sm col-2 mb-3"
+							id="btn_add">Thêm sản phẩm</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

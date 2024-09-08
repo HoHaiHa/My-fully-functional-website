@@ -3,7 +3,6 @@ package springbootWeb2.com.hohaiha.app.dto.request;
 import java.sql.Date;
 import java.util.List;
 
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

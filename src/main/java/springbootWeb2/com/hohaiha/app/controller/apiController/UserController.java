@@ -5,7 +5,6 @@ import java.util.List;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import springbootWeb2.com.hohaiha.app.dto.request.UserUpdateRequest;
 import springbootWeb2.com.hohaiha.app.dto.response.ApiResponse;
 import springbootWeb2.com.hohaiha.app.dto.response.PageRespose;
 import springbootWeb2.com.hohaiha.app.dto.response.UserResponse;
-import springbootWeb2.com.hohaiha.app.entity.User;
 import springbootWeb2.com.hohaiha.app.service.UserService;
 
 @RestController

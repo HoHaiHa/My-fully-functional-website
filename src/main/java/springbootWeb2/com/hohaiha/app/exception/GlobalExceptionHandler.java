@@ -8,11 +8,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import lombok.extern.slf4j.Slf4j;
 import springbootWeb2.com.hohaiha.app.dto.response.ApiResponse;
 
 @ControllerAdvice
-@Slf4j
 public class GlobalExceptionHandler {
 
 	private static final String MIN_ATTRIBUTE = "min";

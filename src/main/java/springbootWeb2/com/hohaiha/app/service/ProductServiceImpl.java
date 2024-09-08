@@ -1,7 +1,7 @@
 package springbootWeb2.com.hohaiha.app.service;
 
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -80,10 +80,10 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.toProductResponse(product);
 	}
 	
-	public Page<ProductResponse> searchAndFilter(int page, int size,String name, Date startDay,Date endDay,String category,String sortBy,String derection){
+	public Page<ProductResponse> searchAndFilter(int page, int size,String name, LocalDate startDay,LocalDate endDay,String category,String sortBy,String direction){
 	    // Xử lý sort
-	    Sort.Direction direction = Sort.Direction.fromString(derection);
-	    Sort sortOrder = Sort.by(direction, sortBy);
+	    Sort.Direction directionSort = Sort.Direction.fromString(direction);
+	    Sort sortOrder = Sort.by(directionSort, sortBy);
 		
 		Pageable pageable = PageRequest.of(page, size,sortOrder);
 		return productRepository.searchAndFilter( pageable,name,startDay,endDay,category).map(productMapper::toProductResponse);

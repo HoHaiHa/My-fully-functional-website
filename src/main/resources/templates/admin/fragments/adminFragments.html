@@ -59,6 +59,12 @@
 			<li><hr></li>
 			<li class="nav-item"><a
 				class="nav-link active h6 text-white p-0" aria-current="page"
+				id="orders-btn" style="transition: none;"
+				onmousedown="this.style.color='white'; this.style.outline='none';">Đơn
+					hàng</a></li>
+			<li><hr></li>
+			<li class="nav-item"><a
+				class="nav-link active h6 text-white p-0" aria-current="page"
 				id="role-btn" style="transition: none;"
 				onmousedown="this.style.color='white'; this.style.outline='none';">Vai
 					trò và quyền</a></li>
@@ -74,6 +80,7 @@
 				$('#role-btn').attr('href',`${baseUrl}/admin/roles`)
 				$('#product-btn').attr('href',`${baseUrl}/admin/products`)
 				$('#category-btn').attr('href',`${baseUrl}/admin/categories`)
+				$('#orders-btn').attr('href',`${baseUrl}/admin/orders`)
 			})
 		</script>
 	</div>

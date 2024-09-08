@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import springbootWeb2.com.hohaiha.app.dto.request.AdminCreationRequest;
 import springbootWeb2.com.hohaiha.app.dto.request.AdminUpdateRequest;
 import springbootWeb2.com.hohaiha.app.dto.request.UserCreationRequest;
@@ -27,7 +26,6 @@ import springbootWeb2.com.hohaiha.app.dto.request.UserUpdateRequest;
 import springbootWeb2.com.hohaiha.app.dto.response.PageRespose;
 import springbootWeb2.com.hohaiha.app.dto.response.UserResponse;
 import springbootWeb2.com.hohaiha.app.entity.Cart;
-import springbootWeb2.com.hohaiha.app.entity.Permission;
 import springbootWeb2.com.hohaiha.app.entity.Role;
 import springbootWeb2.com.hohaiha.app.entity.User;
 import springbootWeb2.com.hohaiha.app.exception.AppException;
@@ -39,7 +37,6 @@ import springbootWeb2.com.hohaiha.app.repository.UserRepository;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;

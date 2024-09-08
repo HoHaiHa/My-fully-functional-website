@@ -1,6 +1,6 @@
 package springbootWeb2.com.hohaiha.app.service;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import springbootWeb2.com.hohaiha.app.dto.request.OrdersRequest;
@@ -36,8 +37,9 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public OrdersResponse createOrders(OrdersRequest request) {
 		Orders orders = ordersMapper.toOrders(request);
-		
-		User user = userRepository.findById(request.getUserId()).orElseThrow(()-> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+		User user = userRepository.findById(request.getUserId())
+				.orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 		orders.setUser(user);
 
 		List<String> itemsRequest = request.getItem();
@@ -48,11 +50,20 @@ public class OrdersServiceImpl implements OrdersService {
 					.orElseThrow(() -> new AppException(ErrorCode.ITEM_NOT_EXISTED));
 			itemsResult.add(itemResult);
 		}
-		
+
 		orders.setItem(itemsResult);
-		
+
 		ordersRepository.save(orders);
 
+		return ordersMapper.toOrdersResponse(orders);
+	}
+
+	@Override
+	public OrdersResponse setShippingCode(String orderId, String shippingCode) {
+		Orders orders = ordersRepository.findById(orderId)
+				.orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED));
+		orders.setShippingCode(shippingCode);
+		ordersRepository.save(orders);
 		return ordersMapper.toOrdersResponse(orders);
 	}
 
@@ -61,8 +72,9 @@ public class OrdersServiceImpl implements OrdersService {
 		Orders orders = ordersRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED));
 
 		orders = ordersMapper.toOrders(request);
-		
-		User user = userRepository.findById(request.getUserId()).orElseThrow(()-> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+		User user = userRepository.findById(request.getUserId())
+				.orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 		orders.setUser(user);
 
 		List<String> itemsRequest = request.getItem();
@@ -76,7 +88,7 @@ public class OrdersServiceImpl implements OrdersService {
 		}
 
 		orders.setItem(itemsResult);
-		
+
 		ordersRepository.save(orders);
 
 		return ordersMapper.toOrdersResponse(orders);
@@ -100,25 +112,22 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 	@Override
-	public Page<OrdersResponse> searchOrdersPhone(String phone, int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		return ordersRepository.findOrdersByUserPhoneContaining(phone,pageable).map(ordersMapper::toOrdersResponse);
+	public Page<OrdersResponse> filterOrders(String phone, LocalDate startDay, LocalDate endDay, String status,
+			int page, int size, String sortBy, String direction) {
+
+		Sort.Direction directionSort = Sort.Direction.fromString(direction);
+		Sort sortOrder = Sort.by(directionSort, sortBy);
+
+		Pageable pageable = PageRequest.of(page, size, sortOrder);
+		return ordersRepository.filterOrders(pageable, phone, startDay, endDay, status)
+				.map(ordersMapper::toOrdersResponse);
 	}
 
-	@Override
-	public Page<OrdersResponse> searchOrdersCreationDate(Date startDate, Date endDate, int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		return ordersRepository.findOrdersByCreationDateBetween(startDate,endDate, pageable).map(ordersMapper::toOrdersResponse);
-	}
-
-	@Override
-	public Page<OrdersResponse> searchOrdersStatus(String status, int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		return ordersRepository.findByStatus(status, pageable).map(ordersMapper::toOrdersResponse);
-	}
 	
+	@Override
 	public OrdersResponse getOrderByShippingCode(String code) {
-		return ordersRepository.findByShippingCode(code).orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED));
+		return ordersMapper.toOrdersResponse(ordersRepository.findByShippingCode(code)
+				.orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED)));
 	}
 
 }

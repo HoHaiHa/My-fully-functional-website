@@ -3,7 +3,6 @@ package springbootWeb2.com.hohaiha.app.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import springbootWeb2.com.hohaiha.app.dto.response.ProductResponse;
 import springbootWeb2.com.hohaiha.app.entity.Item;
 import springbootWeb2.com.hohaiha.app.entity.Product;
 import springbootWeb2.com.hohaiha.app.exception.AppException;

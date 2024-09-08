@@ -3,12 +3,10 @@ package springbootWeb2.com.hohaiha.app.dto.response;
 import java.sql.Date;
 import java.util.List;
 
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import springbootWeb2.com.hohaiha.app.dto.request.RoleRequest;
 import springbootWeb2.com.hohaiha.app.entity.Item;
 import springbootWeb2.com.hohaiha.app.entity.User;
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import springbootWeb2.com.hohaiha.app.entity.Cart;
 import springbootWeb2.com.hohaiha.app.entity.Item;
-import springbootWeb2.com.hohaiha.app.entity.Product;
 import springbootWeb2.com.hohaiha.app.exception.AppException;
 import springbootWeb2.com.hohaiha.app.exception.ErrorCode;
 import springbootWeb2.com.hohaiha.app.repository.CartRepository;

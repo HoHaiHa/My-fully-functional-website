@@ -1,6 +1,5 @@
 package springbootWeb2.com.hohaiha.app.dto.response;
 
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;

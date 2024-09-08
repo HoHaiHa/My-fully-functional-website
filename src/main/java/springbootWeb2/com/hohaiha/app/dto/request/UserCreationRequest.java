@@ -1,7 +1,6 @@
 package springbootWeb2.com.hohaiha.app.dto.request;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import jakarta.validation.constraints.Size;
 

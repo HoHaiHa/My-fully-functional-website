@@ -1,6 +1,7 @@
 package springbootWeb2.com.hohaiha.app.controller.apiController;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,6 +49,13 @@ public class OrdersController {
 				.build();
 	}
 	
+	@PutMapping("/setShippingCode/{id}")
+	ApiResponse<OrdersResponse> updateOrders(@PathVariable String id,@RequestBody String shippingCode){
+		return ApiResponse.<OrdersResponse>builder()
+				.result(ordersService.setShippingCode(id,shippingCode))
+				.build();
+	}
+	
 	@DeleteMapping("/{id}")
 	ApiResponse deleteOrders(@PathVariable String id){
 		ordersService.deleteOrders(id);
@@ -61,31 +69,25 @@ public class OrdersController {
 				.build();
 	}
 	
-	@GetMapping("/searchphone/{phone}")
-	ApiResponse<Page<OrdersResponse>> searchOrdersPhone(@PathVariable String phone,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size){
-		return ApiResponse.<Page<OrdersResponse>>builder()
-				.result(ordersService.searchOrdersPhone(phone,page, size))
-				.build();
-	}
-	
-	@GetMapping("/searchdate")
-	ApiResponse<Page<OrdersResponse>> searchOrdersCreationDate(@RequestParam Date startDate,@RequestParam Date endDate,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size){
-		return ApiResponse.<Page<OrdersResponse>>builder()
-				.result(ordersService.searchOrdersCreationDate(startDate, endDate,page, size))
-				.build();
-	}
-	
-	@GetMapping("/searchstatus/{status}")
-	ApiResponse<Page<OrdersResponse>> searchOrdersStatus(@PathVariable String status,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size){
-		return ApiResponse.<Page<OrdersResponse>>builder()
-				.result(ordersService.searchOrdersStatus(status,page, size))
-				.build();
-	}
-	
-	@GetMapping("/searchcode/{code}")
+	@GetMapping("/shippingCode/{code}")
 	ApiResponse<OrdersResponse> getOrderByShippingCode(@PathVariable String code){
 		return ApiResponse.<OrdersResponse>builder()
 				.result(ordersService.getOrderByShippingCode(code))
+				.build();
+	}
+	@GetMapping("/filter")
+	ApiResponse<Page<OrdersResponse>> filterOrders(
+		@RequestParam(defaultValue = "") String phone,
+		@RequestParam(required = false) LocalDate startDay,
+		@RequestParam(required = false) LocalDate endDay,
+		@RequestParam(required = false) String status,
+		@RequestParam(defaultValue = "0") int page,
+		@RequestParam(defaultValue = "10") int size,
+		@RequestParam(defaultValue = "creationDate") String sortBy,
+		@RequestParam(defaultValue = "desc") String direction
+			){
+		return ApiResponse.<Page<OrdersResponse>>builder()
+				.result(ordersService.filterOrders(phone, startDay, endDay, status, page, size, sortBy, direction))
 				.build();
 	}
 	

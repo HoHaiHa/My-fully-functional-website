@@ -32,4 +32,6 @@ public interface UserService {
 	public UserResponse AdminCreateUser(AdminCreationRequest request);
 	
 	public List<UserResponse> getUserByKeyword(String keyword);
+	
+	public UserResponse findUserByPhone(String phone);
 }

@@ -22,7 +22,10 @@ public class OrdersResponse {
 	private int totalPrice;
 	private int Tax;
 	private int finalTotalPrice;
-	private String Address;
+	private String city;
+	private String district;
+	private String ward;
+	private String numberAndStreet;
 	private String shippingCode;
 	private String notes;
 	private String paymentMethod;

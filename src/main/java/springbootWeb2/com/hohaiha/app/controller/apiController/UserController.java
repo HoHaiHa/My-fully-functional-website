@@ -74,5 +74,10 @@ public class UserController {
 		return ApiResponse.<List<UserResponse>>builder().result(userService.getUserByKeyword(keyword)).build();
 	}
 	
+	@GetMapping("/phone/{phone}")
+	ApiResponse<UserResponse> findUserByPhone(@PathVariable String phone) {
+		return ApiResponse.<UserResponse>builder().result(userService.findUserByPhone(phone)).build();
+	}
+	
 
 }

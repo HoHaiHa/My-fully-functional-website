@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	//thêm đường link cho nút huỷ
-	btnCancel.setAttribute("href", `${baseUrl}/admin/getusers`);
+	btnCancel.setAttribute("href", `${baseUrl}/admin/users`);
 
 	//validate
 	username.addEventListener('blur', () => { testUsername() });
@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	btnCancel.addEventListener('click', function(event) {
 		const userConfirmed = confirm('Bạn có chắc chắn muốn huỷ thêm người dùng không?');
 		if (!userConfirmed) event.preventDefault()
+		
 	})
 
 	//xử lý nút lưu
@@ -150,7 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			console.log(listRoles.value)
 			addUser()
 			const userConfirmed = confirm('Có tiếp tục thêm người');
-			if(!userConfirmed) window.history.back();
+			if(!userConfirmed) window.location.href = `${baseUrl}/users`;
+			if(confirm) window.location.reload();
 
 		}
 	})

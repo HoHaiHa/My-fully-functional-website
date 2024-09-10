@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class ViewOrdersController {
 	@GetMapping("/orders")
-	public String getUsers() {
+	public String getOrders() {
 		return "/admin/pages/orders";
+	}
+	@GetMapping("/addOrders")
+	public String addOrders() {
+		return "/admin/pages/addOrders";
 	}
 }

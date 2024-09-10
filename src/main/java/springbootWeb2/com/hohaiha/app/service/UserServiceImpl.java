@@ -32,6 +32,7 @@ import springbootWeb2.com.hohaiha.app.exception.AppException;
 import springbootWeb2.com.hohaiha.app.exception.ErrorCode;
 import springbootWeb2.com.hohaiha.app.mapper.PageMapper;
 import springbootWeb2.com.hohaiha.app.mapper.UserMapper;
+import springbootWeb2.com.hohaiha.app.repository.CartRepository;
 import springbootWeb2.com.hohaiha.app.repository.RoleRepository;
 import springbootWeb2.com.hohaiha.app.repository.UserRepository;
 
@@ -46,6 +47,8 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	@Autowired
 	private PageMapper pageMapper;
+	@Autowired
+	private CartRepository cartRepository;
 	
 
 	// private PasswordEncoder passwordEncoder;
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService {
 		user.setRoles(new HashSet<>(Arrays.asList(role)));
 		
 		Cart cart = new Cart();
-		
+		cartRepository.save(cart);
 		user.setCart(cart);
 		
 		try {
@@ -86,6 +89,7 @@ public class UserServiceImpl implements UserService {
 		user.setRoles(new HashSet<>(roles));
 		
 		Cart cart = new Cart();
+		cartRepository.save(cart);
 		user.setCart(cart);
 
 		try {
@@ -183,5 +187,8 @@ public class UserServiceImpl implements UserService {
 		return pageMapper.toPageResponse(userPage);
 	}
 	
+	public UserResponse findUserByPhone(String phone){
+		return userMapper.toUserResponse(userRepository.findByPhoneExists(phone).orElseThrow(()-> new AppException(ErrorCode.USER_NOT_EXISTED)));
+	}
 	
 }

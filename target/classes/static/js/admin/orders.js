@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		throw new Error('login error');
 	}
 
-	const listProducts = document.querySelector('#list-products');
+	const listOrders = document.querySelector('#list-orders');
 	const firstPageBtn = document.querySelector('#page_first');
 	const previousPageBtn = document.querySelector('#page_previous');
 	const nextPageBtn = document.querySelector('#page_next');
@@ -15,48 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//thêm đường dẫn vào nút thêm 
 	const addUserBtn = document.querySelector('#btn_add')
-	addUserBtn.setAttribute('href', `${baseUrl}/admin/addProduct`)
+	addUserBtn.setAttribute('href', `${baseUrl}/admin/addOrders`)
 
+	//xử lý hiển thị đơn hàng
+	var resultFetch;
 	let page = 0;
-	let userApi = `${baseUrl}/products?page=${page}`;
-	let resultFetch = '';
-
-	//xử lý hiển thị danh mục lên phần lọc 
-	let categoryApi = `${baseUrl}/categories`;
-
-	let categoryOptions = {
-		method: 'GET',
-		headers: {
-			'Authorization': `Bearer ${token}`,
-			'Content-Type': 'application/json',
-		},
-	};
-
-	getCategory(rendeCategory);
-
-	function getCategory(callback) {
-		fetch(categoryApi, categoryOptions)
-			.then(response => {
-				if (!response.ok) throw new alert('get category response was not ok')
-				else return response.json()
-			})
-			.then(callback)
-			.catch(error => {
-				console.error('There was a problem with the fetch operation:', error);
-			});
-	}
-
-	function rendeCategory(categories) {
-		const listCateforyResult = categories.result;
-		$('#select-category').html("<option selected></option>")
-
-		listCateforyResult.forEach((category) => {
-			$("#select-category").append(`<option>${category.name}</option>`);
-		})
-	}
-
-	//xử lý hiển thị sản phẩm
-	const options = {
+	let ordersApi = `${baseUrl}/orders?page=${page}`;
+	const orderOptions = {
 		method: 'GET',
 		headers: {
 			'Authorization': `Bearer ${token}`,
@@ -65,13 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	function start() {
-		getProducts(renderProducts, getFetchResult);
+		getOrders(renderOrders, getFetchResult);
 	}
 
 	start();
 
-	function getProducts(callback1, callback2) {
-		fetch(userApi, options)
+	function getOrders(callback1, callback2) {
+		fetch(ordersApi, orderOptions)
 			.then(response => {
 				if (!response.ok) {
 					throw new Error(' response was not ok');
@@ -88,49 +53,39 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 	}
 
-	function renderProducts(products) {
-		const listProductsResult = products.result.content;
+	function renderOrders(orders) {
+		const listOrdersResult = orders.result.content;
 
-		listProducts.innerHTML = `		
+		listOrders.innerHTML = `		
 		<tr>
 			<th scope="col">STT</th>
 			<th scope="col">Khách hàng</th>
 			<th scope="col">Tổng số lượng</th>
 			<th scope="col">Tổng giá trị</th>
-			<th scope="col">Địa chỉ</th>
 			<th scope="col">Trạng thái</th>
 		</tr>`
 
-		let index = products.result.number * products.result.size;
+		let index = orders.result.number * orders.result.size;
 
-		listProductsResult.forEach((product, i) => {
+		listOrdersResult.forEach((order, i) => {
 			const row = document.createElement('tr');
-			row.setAttribute('data-product-id', product.id);
-			row.classList.add('product_info');
+			row.setAttribute('data-order-id', orders.id);
 			row.setAttribute('style', "cursor:pointer");
 			row.innerHTML = `
                 <th scope="row" style="padding-left: 10px;">${index + i + 1}</th>
-                <td style="padding-left: 10px;">
-				<div style="
-			        width: 100px;
-			        height: 100px; /* Hoặc chiều cao mong muốn */
-			        background-image: url(${product.img});
-			        background-size: cover;
-			        background-position: center;
-			        background-repeat: no-repeat;
-			    "></div>
-				</td>
-                <td style="padding-left: 10px;">${product.name}</td>
-                <td style="padding-left: 10px;">${product.price}</td>
-                <td style="padding-left: 10px;">${product.brand}</td>
-                <td style="padding-left: 10px;">${product.quantity}</td>
-                <td style="padding-left: 10px;"><button type="button" class="btn btn-outline-danger btn-delete"  data-product-id	="${product.id}">Xoá sản phẩm</button></td>
+                <td style="padding-left: 10px;">${order.user.phone}</td>
+                <td style="padding-left: 10px;">${order.totalQuantity}</td>
+                <td style="padding-left: 10px;">${order.finalTotalPrice}</td>
+                <td style="padding-left: 10px;">${order.status}</td>
             `;
 			listProducts.appendChild(row);
 		});
 	}
 
 
+	function getFetchResult(orders) {
+		resultFetch = JSON.stringify(orders);
+	}
 
 
 
@@ -138,9 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	//xử lý nút chuyển trang
 	//láy giá trị trả về
 
-	function getFetchResult(products) {
-		resultFetch = JSON.stringify(products);
-	}
 
 	function getSearchResult(products) {
 		searchResult = JSON.stringify(products);

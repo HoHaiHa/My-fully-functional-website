@@ -49,20 +49,20 @@ table {
 						<option data-sortBy="" data-direction="" id="sort-option" selected>Chọn sắp xếp</option>
 						<option data-sortBy="creationDate" data-direction="DESC" >Ngày tạo mới đên cũ</option>
 						<option data-sortBy="creationDate" data-direction="ASC" >Ngày tạo cũ đến mới</option>
-						<option data-sortBy="price" data-direction="asc" >Tổng giá trị tăng</option>
-						<option data-sortBy="price" data-direction="desc" >Tổng giá trị giảm</option>
-						<option data-sortBy="price" data-direction="asc" >Tổng số lượng tăng</option>
-						<option data-sortBy="price" data-direction="desc" >Tổng số lượng giảm</option>
+						<option data-sortBy="finalTotalPrice" data-direction="asc" >Tổng giá trị tăng</option>
+						<option data-sortBy="finalTotalPrice" data-direction="desc" >Tổng giá trị giảm</option>
+						<option data-sortBy="totalQuantity" data-direction="asc" >Tổng số lượng tăng</option>
+						<option data-sortBy="totalQuantity" data-direction="desc" >Tổng số lượng giảm</option>
 					</select> 
 					<span>Trạng thái:</span> 
-					<select id="select-category" class="col-1"
+					<select id="select-status" class="col-1"
 						style="padding: 0; height: 30px; margin: 10px;">
 						<option data-status="pending" selected>Chưa xử lý</option>
 						<option data-status="progress">Đang xử lý</option>
 						<option data-status="processed">Đã xử lý</option>
 					</select>
 				</div>
-				<table class="table " id="list-products"
+				<table class="table " id="list-orders"
 					style="border: none; background-color: white">
 				</table>
 				<div class="container">
@@ -81,7 +81,7 @@ table {
 						</nav>
 
 						<a type="button" class="btn btn-primary btn-sm col-2 mb-3"
-							id="btn_add">Thêm sản phẩm</a>
+							id="btn_add">Tạo đơn hàng</a>
 					</div>
 				</div>
 

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMIN LALASHOP manager</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" />
+<script type="module" th:src="@{/js/admin/detailOrders.js}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+.add-item{
+	position:absolute; 
+	right:40px;
+	font-size:80px;
+	top:30%;
+	height:60px;
+	background-color:#6c747e;
+	color:white;
+	line-height:42px;
+	border-radius:10px;
+	cursor:pointer;
+}
+.add-item:hover{
+	background-color:blue;
+}
+.remove-item{
+	position:absolute; 
+	right:110px;
+	font-size:80px;
+	top:30%;
+	height:60px;
+	background-color:#6c747e;
+	color:white;
+	line-height:42px;
+	border-radius:10px;
+	cursor:pointer;
+}
+.remove-item:hover{
+	background-color:red;
+}
+
+
+</style>
+<body>
+	<div th:insert="~{admin/fragments/adminFragments :: header}"></div>
+
+	<div class="container-fluid vh-100">
+		<div class="row h-100">
+			<div class="col-2  bg-secondary text-white "
+				th:insert="~{admin/fragments/adminFragments :: menu}"></div>
+
+
+			<div class="col-10 text-white content">
+				<div class="container text-dark ">
+					<H2 style="color: black">Tạo đơn hàng mới</H2>
+					<h5 class="text-dark">Thông tin khách hàng</h5>
+					<div class="col-11  " style="height:70px;background-color:#e8e9eb;border-radius:14px" id="user-infor">
+						<span style="line-height:70px;margin:10px">Tên khách hàng</span>
+						<input id="user-name" class="col-4" style="border-radius:8px">
+						<span style="line-height:70px;margin:10px;margin-left:100px">Số điện thoại</span>
+						<input id="user-phone" list="phone-option" class="col-2" style="border-radius:8px">
+					</div>
+					<h5 class="text-dark mt-4">Thông tin sản phẩm</h5>
+					<div class="col-11" id="product-item" style="min-height:70px;background-color:#e8e9eb;border-radius:14px;position:relative">
+						<div>
+							<span style="line-height:50px;margin:10px;margin-right:25px">Mã sản phẩm</span>
+							<input id="product-id" class="col-4 product-id" style="border-radius:8px">
+							<span style="line-height:70px;margin:10px;margin-left:100px">Số lượng</span>
+							<input id="product-quantity" class="product-quantity" type="number" min="1"  style="max-width:50px ;border-radius:8px">	
+						</div>
+						<div class="d-flex flex-row">
+							<span style="line-height:50px;margin:10px;margin-right:30px">Tên sản phẩm</span>
+							<div id="product-name" class="col-5" style="line-height:70px"></div>
+							<span style="line-height:50px;margin:10px;margin-right:25px">Giá sản phẩm</span>
+							<div id="product-price" class="col-3" style="line-height:70px"></div>
+						</div>
+						<div class="add-item">
+							+
+						</div>
+					</div>
+					<div id="add-product-item"></div>
+					
+					<h5 class="text-dark mt-4">Thông tin đơn hàng</h5>
+					<div class="col-11  d-flex flex-row" style="min-height:70px;background-color:#e8e9eb;border-radius:14px">
+						<table class="table">
+							<tr>
+								<td>
+									<span style="line-height:50px;margin:10px">Ngày tạo đơn</span>
+									<input id="inputCreationDate" type="date" class="col-4" style="border-radius:8px">
+								</td>
+								<td>
+									<span style="line-height:50px;margin:10px">Tổng giá trị</span>
+									<span id="inputTotalPrice"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span style="line-height:50px;margin:10px">Tổng số lượng </span>
+									<span id="inputTotalQuantity"></span>
+									
+								</td>
+								<td>
+									<span style="line-height:50px;margin:10px">Giảm giá(%)</span>
+									<input id="input-discount" type="number" value=0  class="col-4" style="border-radius:8px">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span style="line-height:50px;margin-left:10px">Phương thức thanh toán</span>
+									<select id="input-paymentMethod" style="border-radius:8px;margin-left:20px"	>
+										<option selected>Tiền mặt tại quầy</option>
+										<option>Sau khi nhận hàng</option>
+										<option>Chuyển khoản trước</option>
+									</select>
+								</td>
+								<td>
+									<span style="line-height:50px;margin:10px">Thuế(%)</span>
+									<input id="input-tax" type="number" value=0 class="col-4" style="border-radius:8px;margin-left:26px">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span style="line-height:50px;margin-left:10px">Trạng thái</span>
+									<select id="input-status" style="border-radius:8px;margin-left:36px"	>
+										<option data-status="pending">Chưa xử lý</option>
+										<option data-status="progress">Đang xử lý</option>
+										<option data-status="processed" selected>Đã xử lý</option>
+									</select>
+								</td>
+								<td>
+									<span style="line-height:50px;margin:10px">Tổng Giá trị sau thuế</span>
+									<span id="input-final-price"></span>
+								</td>
+							</tr>
+						
+						</table>
+					</div>
+					<h5 class="text-dark mt-4">Thông tin giao hàng</h5>
+					<div class="col-11  " style="min-height:70px;background-color:#e8e9eb;border-radius:14px">
+						<table class="col-12">
+							<tr>
+								<td colspan="2">
+									<span style="line-height:70px;margin:10px">Địa chỉ cụ thể(số nhà, tên đường)</span>
+									<input class="col-6" id="input-numberAndStreet" style="border-radius:8px">
+								</td>
+								
+							</tr>
+							<tr>
+								<td >
+									<span style="line-height:70px;margin:10px">Tỉnh/Thành phố</span>
+									<input class="col-7" id="input-city" style="border-radius:8px">
+								</td>
+								<td>
+									<span style="line-height:70px;margin:10px;margin-left:140px">Quận/Huyện</span>
+									<input class="col-6" id="input-district" style="border-radius:8px">
+								</td>
+								
+							</tr>
+							<tr>
+								<td colspan="2">
+									<span style="line-height:70px;margin:10px">Xã/Phường</span>
+									<input class="col-3" id="input-ward" style="border-radius:8px;margin-left:32px">
+								</td>
+								
+							</tr>
+						</table>
+						
+						
+					</div>
+					<h5 class="text-dark mt-4">Ghi chú</h5>
+					<div class="col-11  mb-4" style="min-height:70px;background-color:#e8e9eb;border-radius:14px">
+						<textarea class="col-11" id="input-notes" style="border-radius:10px;margin:20px" rows="3" ></textarea>
+					</div>
+					
+					<div>
+						<button type="button" class="btn btn-primary col-2" id="btn-save-print">Lưu và in hoá đơn</button>
+						<button type="button" class="btn btn-primary col-2" id="btn-save">Lưu</button>
+						<a type="button" class="btn btn-secondary col-2" id="btn-cancel">Huỷ</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

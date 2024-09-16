@@ -29,7 +29,7 @@ public class Orders {
 	private int discount;
 	private Date creationDate;
 	private int totalPrice;
-	private int Tax;
+	private int tax;
 	private int finalTotalPrice;
 	private String city;
 	private String district;
@@ -43,4 +43,5 @@ public class Orders {
 	private List<Item> item;
 	@ManyToOne
 	private User user;
+	private String staffId;
 }

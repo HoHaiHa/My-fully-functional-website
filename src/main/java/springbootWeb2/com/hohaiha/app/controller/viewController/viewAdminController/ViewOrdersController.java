@@ -15,4 +15,8 @@ public class ViewOrdersController {
 	public String addOrders() {
 		return "/admin/pages/addOrders";
 	}
+	@GetMapping("/detailOrders")
+	public String detailOrders() {
+		return "/admin/pages/detailOrders";
+	}
 }

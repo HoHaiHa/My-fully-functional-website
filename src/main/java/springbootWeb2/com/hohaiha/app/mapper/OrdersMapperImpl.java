@@ -14,7 +14,7 @@ public class OrdersMapperImpl implements OrdersMapper{
 				.discount(request.getDiscount())
 				.creationDate(request.getCreationDate())
 				.totalPrice(request.getTotalPrice())
-				.Tax(request.getTax())
+				.tax(request.getTax())
 				.finalTotalPrice(request.getFinalTotalPrice())
 				.city(request.getCity())
 				.district(request.getDistrict())
@@ -24,6 +24,7 @@ public class OrdersMapperImpl implements OrdersMapper{
 				.notes(request.getNotes())
 				.paymentMethod(request.getPaymentMethod())
 				.status(request.getStatus())
+				.staffId(request.getStaffId())
 				.build();
 	}
 	
@@ -35,7 +36,7 @@ public class OrdersMapperImpl implements OrdersMapper{
 				.discount(orders.getDiscount())
 				.creationDate(orders.getCreationDate())
 				.totalPrice(orders.getTotalPrice())
-				.Tax(orders.getTax())
+				.tax(orders.getTax())
 				.finalTotalPrice(orders.getFinalTotalPrice())
 				.city(orders.getCity())
 				.district(orders.getDistrict())
@@ -46,6 +47,7 @@ public class OrdersMapperImpl implements OrdersMapper{
 				.paymentMethod(orders.getPaymentMethod())
 				.status(orders.getStatus())
 				.item(orders.getItem())
+				.staffId(orders.getStaffId())
 				.build();
 	}
 }

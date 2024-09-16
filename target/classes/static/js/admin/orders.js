@@ -69,7 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		listOrdersResult.forEach((order, i) => {
 			const row = document.createElement('tr');
-			row.setAttribute('data-order-id', orders.id);
+			row.setAttribute('data-order-id', order.id);
+			row.setAttribute('id', 'orders-info');
 			row.setAttribute('style', "cursor:pointer");
 			row.innerHTML = `
                 <th scope="row" style="padding-left: 10px;">${index + i + 1}</th>
@@ -78,7 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td style="padding-left: 10px;">${order.finalTotalPrice}</td>
                 <td style="padding-left: 10px;">${order.status}</td>
             `;
-			listProducts.appendChild(row);
+			listOrders.appendChild(row);
+
 		});
 	}
 
@@ -97,11 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	function getSearchResult(products) {
 		searchResult = JSON.stringify(products);
 	}
+	
+	var searchApi;
 
-	let name = $("#input-search").val().trim()
+	let phone = $("#input-search").val().trim()
 	let startDay = $("#input-startDay").val()
 	let endDay = $("#input-endDay").val()
-	let category = $("#select-category").val()
+
+	let statusOption = $("#select-category").find('option:selected')
+	let status = statusOption.data('status')
 
 	var selectedOption = $('#select-sort').find('option:selected');
 	var sortBy = selectedOption.data('sortby');
@@ -114,15 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			start();
 		}
 		else {*/
-			page = 0;
-			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}`;
-			search();
+		page = 0;
+		searchApi = `${baseUrl}/orders/filter?phone=${phone}&startDay=${startDay}&endDay=${endDay}&status=${status}&sortBy=${sortBy}&direction=${direction}`;
+		search();
 		//}
 
 	});
 
 	previousPageBtn.addEventListener('click', () => {
-/*		if ($("#input-search").val().trim() == "") {
+		/*if ($("#input-search").val().trim() == "") {
 			const currentPage = JSON.parse(resultFetch)?.result?.number;
 			if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
 			page = currentPage - 1;
@@ -130,11 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			start();
 		}
 		else {*/
-			const currentPage = JSON.parse(searchResult)?.result?.number;
-			if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
-			page = currentPage - 1;
-			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
-			search();
+		const currentPage = JSON.parse(searchResult)?.result?.number;
+		if (currentPage <= 0) return; // Kiểm tra trang đầu tiên
+		page = currentPage - 1;
+		searchApi = `${baseUrl}/orders/filter?phone=${phone}&startDay=${startDay}&endDay=${endDay}&status=${status}&sortBy=${sortBy}&direction=${direction}`;
+		search();
 		//}
 	});
 
@@ -148,12 +154,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			start();
 		}
 		else {*/
-			const currentPage = JSON.parse(searchResult)?.result?.number;
-			const totalPages = JSON.parse(searchResult)?.page?.totalPages;
-			if (currentPage >= totalPages - 1) return; // Kiểm tra trang cuối cùng
-			page = currentPage + 1;
-			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
-			search();
+		const currentPage = JSON.parse(searchResult)?.result?.number;
+		const totalPages = JSON.parse(searchResult)?.page?.totalPages;
+		if (currentPage >= totalPages - 1) return; // Kiểm tra trang cuối cùng
+		page = currentPage + 1;
+		searchApi =`${baseUrl}/orders/filter?phone=${phone}&startDay=${startDay}&endDay=${endDay}&status=${status}&sortBy=${sortBy}&direction=${direction}`
+		search();
 		//}
 
 	});
@@ -165,16 +171,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			start();
 		}
 		else {*/
-			page = JSON.parse(searchResult)?.result?.totalPages - 1;
-			userApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}&page=${page}`;
-			search();
+		page = JSON.parse(searchResult)?.result?.totalPages - 1;
+		searchApi=`${baseUrl}/orders/filter?phone=${phone}&startDay=${startDay}&endDay=${endDay}&status=${status}&sortBy=${sortBy}&direction=${direction}`
+		search();
 		//}
 
 	});
 
-	//xử lý nút xoá
-	function deleteProduct(productId) {
-		let deleteApi = `${baseUrl}/products/${productId}`
+	/*//xử lý nút xoá
+	function deleteOrders(orderId) {
+		let deleteApi = `${baseUrl}/orders/${ordersId}`
 
 		let deleteOptions = {
 			method: 'DELETE',
@@ -195,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	}
 
-	$('#list-products').on('click', '.product_info', function(event) {
+	$('#list-orders').on('click', '.orders_info', function(event) {
 		// Xử lý khi nhấn nút xóa
 		if ($(event.target).is('.btn-delete')) {
 			let userConfirm = confirm('Xoá sản phẩm này')
@@ -212,28 +218,32 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-
+*/
 	//xử lý ô tìm kiếm
 
 	$("#input-search").keyup(search)
 	$("#input-startDay").change(search)
 	$("#input-endDay").change(search)
 	$("#select-sort").change(search)
-	$("#select-category").change(search)
+	$("#select-status").change(search)
 	var searchResult;
+	
+	
 
 	function search() {
 
-		let name = $("#input-search").val().trim()
+		let phone = $("#input-search").val().trim()
 		let startDay = $("#input-startDay").val()
 		let endDay = $("#input-endDay").val()
-		let category = $("#select-category").val()
+
+		let statusOption = $("#select-status").find('option:selected')
+		let status = statusOption.data('status')
 
 		var selectedOption = $('#select-sort').find('option:selected');
 		var sortBy = selectedOption.data('sortby');
 		var direction = selectedOption.data('direction');
-		
-		var searchApi = `${baseUrl}/products/filter?name=${name}&startDay=${startDay}&endDay=${endDay}&category=${category}&sortBy=${sortBy}&direction=${direction}`
+
+		var searchApi = `${baseUrl}/orders/filter?phone=${phone}&startDay=${startDay}&endDay=${endDay}&status=${status}&sortBy=${sortBy}&direction=${direction}`
 
 		console.log(searchApi)
 
@@ -245,10 +255,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			},
 		}
 
-		searchUser(searchApi, searchOptions, renderSearchproducts, getSearchResult);
+		searchOrders(searchApi, searchOptions, renderOrders, getSearchResult);
 	}
 
-	function searchUser(api, options, callback1, callback2) {
+	function searchOrders(api, options, callback1, callback2) {
 		fetch(api, options)
 			.then(response => {
 				if (!response.ok) throw new Error('fetch error')
@@ -261,48 +271,42 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 	}
 
-	function renderSearchproducts(products) {
-		const listProductsResult = products.result.content;
+	function renderOrders(orders) {
+		const listOrdersResult = orders.result.content;
 
-		listProducts.innerHTML = `		
+		listOrders.innerHTML = `		
 		<tr>
 			<th scope="col">STT</th>
-			<th scope="col">Ảnh</th>
-			<th scope="col">Tên</th>
-			<th scope="col">Giá</th>
-			<th scope="col">Hãng</th>
-			<th scope="col">Số lượng</th>
+			<th scope="col">Khách hàng</th>
+			<th scope="col">Tổng số lượng</th>
+			<th scope="col">Tổng giá trị</th>
+			<th scope="col">Trạng thái</th>
 		</tr>`
 
-		let index = products.result.number * products.result.size;
+		let index = orders.result.number * orders.result.size;
 
-		listProductsResult.forEach((product, i) => {
+		listOrdersResult.forEach((order, i) => {
 			const row = document.createElement('tr');
-			row.setAttribute('data-product-id', product.id);
-			row.classList.add('product_info');
+			row.setAttribute('data-order-id', order.id);
+			row.setAttribute('id', 'orders-info');
 			row.setAttribute('style', "cursor:pointer");
 			row.innerHTML = `
                 <th scope="row" style="padding-left: 10px;">${index + i + 1}</th>
-                <td style="padding-left: 10px;">
-				<div style="
-			        width: 100px;
-			        height: 100px; /* Hoặc chiều cao mong muốn */
-			        background-image: url(${product.img});
-			        background-size: cover;
-			        background-position: center;
-			        background-repeat: no-repeat;
-			    "></div>
-				</td>
-                <td style="padding-left: 10px;">${product.name}</td>
-                <td style="padding-left: 10px;">${product.price}</td>
-                <td style="padding-left: 10px;">${product.brand}</td>
-                <td style="padding-left: 10px;">${product.quantity}</td>
-                <td style="padding-left: 10px;"><button type="button" class="btn btn-outline-danger btn-delete"  data-product-id="${product.id}">Xoá sản phẩm</button></td>
+                <td style="padding-left: 10px;">${order.user.phone}</td>
+                <td style="padding-left: 10px;">${order.totalQuantity}</td>
+                <td style="padding-left: 10px;">${order.finalTotalPrice}</td>
+                <td style="padding-left: 10px;">${order.status}</td>
             `;
-			listProducts.appendChild(row);
+			listOrders.appendChild(row);
+
 		});
 	}
 
+	//xử lý chi tiết orders
+	$(document).on('click','#orders-info',function(){
+		let orderId = $(this).data('order-id')
+		window.location.href =`${baseUrl}/admin/detailOrder?orderId=${orderId}`
+	})
 
 });
 

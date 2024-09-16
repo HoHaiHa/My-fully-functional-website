@@ -61,6 +61,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		return AuthenticationResponse.builder()
 				.token(generateToken(user))
 				.authenticated(authenticated)
+				.userId(user.getId())
 				.build();
 	}
 	

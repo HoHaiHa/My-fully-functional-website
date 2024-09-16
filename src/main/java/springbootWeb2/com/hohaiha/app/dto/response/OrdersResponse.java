@@ -20,7 +20,7 @@ public class OrdersResponse {
 	private int discount;
 	private Date creationDate;
 	private int totalPrice;
-	private int Tax;
+	private int tax;
 	private int finalTotalPrice;
 	private String city;
 	private String district;
@@ -32,4 +32,5 @@ public class OrdersResponse {
 	private String status;
 	private List<Item> item;
 	private User user;
+	private String staffId;
 }

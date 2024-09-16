@@ -17,7 +17,7 @@ public class OrdersRequest {
 	private int discount;
 	private Date creationDate;
 	private int totalPrice;
-	private int Tax;
+	private int tax;
 	private int finalTotalPrice;
 	private String city;
 	private String district;
@@ -29,4 +29,5 @@ public class OrdersRequest {
 	private String status;
 	private List<String> item;
 	private String userId;
+	private String staffId;
 }

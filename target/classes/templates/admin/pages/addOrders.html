@@ -26,6 +26,21 @@
 .add-item:hover{
 	background-color:blue;
 }
+.remove-item{
+	position:absolute; 
+	right:110px;
+	font-size:80px;
+	top:30%;
+	height:60px;
+	background-color:#6c747e;
+	color:white;
+	line-height:42px;
+	border-radius:10px;
+	cursor:pointer;
+}
+.remove-item:hover{
+	background-color:red;
+}
 
 
 </style>
@@ -89,29 +104,30 @@
 								</td>
 								<td>
 									<span style="line-height:50px;margin:10px">Giảm giá(%)</span>
-									<input id="input-discount" class="col-4" style="border-radius:8px">
+									<input id="input-discount" type="number" value=0  class="col-4" style="border-radius:8px">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span style="line-height:50px;margin-left:10px">Phương thức thanh toán</span>
-									<select style="border-radius:8px;margin-left:20px"	>
+									<select id="input-paymentMethod" style="border-radius:8px;margin-left:20px"	>
+										<option selected>Tiền mặt tại quầy</option>
 										<option>Sau khi nhận hàng</option>
-										<option selected>Tiền mặt</option>
+										<option>Chuyển khoản trước</option>
 									</select>
 								</td>
 								<td>
 									<span style="line-height:50px;margin:10px">Thuế(%)</span>
-									<input id="input-tax" class="col-4" style="border-radius:8px;margin-left:26px">
+									<input id="input-tax" type="number" value=0 class="col-4" style="border-radius:8px;margin-left:26px">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span style="line-height:50px;margin-left:10px">Trạng thái</span>
-									<select style="border-radius:8px;margin-left:36px"	>
-										<option>Chưa xử lý</option>
-										<option>Đang xử lý</option>
-										<option selected>Đã xử lý</option>
+									<select id="input-status" style="border-radius:8px;margin-left:36px"	>
+										<option data-status="pending">Chưa xử lý</option>
+										<option data-status="progress">Đang xử lý</option>
+										<option data-status="processed" selected>Đã xử lý</option>
 									</select>
 								</td>
 								<td>
@@ -128,25 +144,25 @@
 							<tr>
 								<td colspan="2">
 									<span style="line-height:70px;margin:10px">Địa chỉ cụ thể(số nhà, tên đường)</span>
-									<input class="col-6" style="border-radius:8px">
+									<input class="col-6" id="input-numberAndStreet" style="border-radius:8px">
 								</td>
 								
 							</tr>
 							<tr>
 								<td >
 									<span style="line-height:70px;margin:10px">Tỉnh/Thành phố</span>
-									<input class="col-7" style="border-radius:8px">
+									<input class="col-7" id="input-city" style="border-radius:8px">
 								</td>
 								<td>
 									<span style="line-height:70px;margin:10px;margin-left:140px">Quận/Huyện</span>
-									<input class="col-6" style="border-radius:8px">
+									<input class="col-6" id="input-district" style="border-radius:8px">
 								</td>
 								
 							</tr>
 							<tr>
 								<td colspan="2">
 									<span style="line-height:70px;margin:10px">Xã/Phường</span>
-									<input class="col-3" style="border-radius:8px;margin-left:32px">
+									<input class="col-3" id="input-ward" style="border-radius:8px;margin-left:32px">
 								</td>
 								
 							</tr>
@@ -156,12 +172,13 @@
 					</div>
 					<h5 class="text-dark mt-4">Ghi chú</h5>
 					<div class="col-11  mb-4" style="min-height:70px;background-color:#e8e9eb;border-radius:14px">
-						<textarea class="col-11" style="border-radius:10px;margin:20px" id="exampleTextarea" rows="3" ></textarea>
+						<textarea class="col-11" id="input-notes" style="border-radius:10px;margin:20px" rows="3" ></textarea>
 					</div>
 					
 					<div>
-						<button type="button" class="btn btn-primary col-2" id="btn_save">Lưu</button>
-						<a type="button" class="btn btn-secondary col-2" id="btn_cancel">Huỷ</a>
+						<button type="button" class="btn btn-primary col-2" id="btn-save-print">Lưu và in hoá đơn</button>
+						<button type="button" class="btn btn-primary col-2" id="btn-save">Lưu</button>
+						<a type="button" class="btn btn-secondary col-2" id="btn-cancel">Huỷ</a>
 					</div>
 				</div>
 			</div>

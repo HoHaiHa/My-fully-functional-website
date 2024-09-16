@@ -59,15 +59,6 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 	@Override
-	public OrdersResponse setShippingCode(String orderId, String shippingCode) {
-		Orders orders = ordersRepository.findById(orderId)
-				.orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED));
-		orders.setShippingCode(shippingCode);
-		ordersRepository.save(orders);
-		return ordersMapper.toOrdersResponse(orders);
-	}
-
-	@Override
 	public OrdersResponse updateOrders(String id, OrdersRequest request) {
 		Orders orders = ordersRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED));
 
@@ -123,11 +114,35 @@ public class OrdersServiceImpl implements OrdersService {
 				.map(ordersMapper::toOrdersResponse);
 	}
 
-	
 	@Override
 	public OrdersResponse getOrderByShippingCode(String code) {
 		return ordersMapper.toOrdersResponse(ordersRepository.findByShippingCode(code)
 				.orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED)));
+	}
+
+	@Override
+	public OrdersResponse updateShippingCode(String orderId, String shippingCode) {
+		Orders orders = ordersRepository.findById(orderId)
+				.orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED));
+		orders.setShippingCode(shippingCode);
+		ordersRepository.save(orders);
+		return ordersMapper.toOrdersResponse(orders);
+	}
+
+	@Override
+	public OrdersResponse updateStatus(String id, String status) {
+		Orders orders = ordersRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED));
+		orders.setStatus(status);
+		ordersRepository.save(orders);
+		return ordersMapper.toOrdersResponse(orders);
+	}
+
+	@Override
+	public OrdersResponse updateStaff(String id, String staffId) {
+		Orders orders = ordersRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ORDERS_NOT_EXISTED));
+		orders.setStaffId(staffId);
+		ordersRepository.save(orders);
+		return ordersMapper.toOrdersResponse(orders);
 	}
 
 }
